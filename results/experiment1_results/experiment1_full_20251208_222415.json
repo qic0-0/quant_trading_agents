@@ -1,0 +1,4949 @@
+[
+  {
+    "ticker": "NVDA",
+    "category": "increasing",
+    "system_mode": "full",
+    "model_type": "hmm",
+    "success": true,
+    "metrics": {
+      "cumulative_return": 2.221765812473297,
+      "cumulative_return_pct": "222.18%",
+      "sharpe_ratio": 1.933,
+      "max_drawdown": 0.1591,
+      "max_drawdown_pct": "15.91%",
+      "directional_accuracy": 0.8966,
+      "directional_accuracy_pct": "89.66%",
+      "win_rate": 0.6923,
+      "win_rate_pct": "69.23%",
+      "num_trades": 30,
+      "initial_value": 100000.0,
+      "final_value": 322176.58,
+      "num_decisions": 87
+    },
+    "decisions": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 25.519794464111328,
+        "decision": "BUY 2437 shares of NVDA @ $25.52",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.16842269897461,
+        "decision": "BUY 625 shares of NVDA @ $27.17",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.360260009765625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.01454734802246,
+        "decision": "BUY 1 shares of NVDA @ $27.01",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 26.73577880859375,
+        "decision": "SELL 335 shares of NVDA @ $26.74",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.096481323242188,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.7259578704834,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.65618133544922,
+        "decision": "BUY 95 shares of NVDA @ $28.66",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.31646728515625,
+        "decision": "BUY 57 shares of NVDA @ $28.32",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 31.238037109375,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 38.913658142089844,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.13847732543945,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.45329666137695,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.776153564453125,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 41.84555435180664,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.28623962402344,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.87008285522461,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.04277038574219,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.418949127197266,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.236820220947266,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.52306365966797,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.45439147949219,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.081748962402344,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 49.22819137573242,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.2111930847168,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.55161666870117,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.99055480957031,
+        "decision": "SELL 82 shares of NVDA @ $40.99",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.061222076416016,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.6591911315918,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.914730072021484,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.0738639831543,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.30000305175781,
+        "decision": "SELL 39 shares of NVDA @ $40.30",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.47794723510742,
+        "decision": "BUY 1 shares of NVDA @ $43.48",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.91973114013672,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 49.44810485839844,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.745201110839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.7348518371582,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.479549407958984,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.86277389526367,
+        "decision": "SELL 193 shares of NVDA @ $48.86",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.80281066894531,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.141178131103516,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 53.11041259765625,
+        "decision": "BUY 73 shares of NVDA @ $53.11",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 56.02178955078125,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.32783126831055,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.49274444580078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 70.05996704101562,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 73.8588638305664,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 78.49427032470703,
+        "decision": "SELL 356 shares of NVDA @ $78.49",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 79.06794738769531,
+        "decision": "BUY 188 shares of NVDA @ $79.07",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 92.62174224853516,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.89916229248047,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 91.38836669921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 90.30992889404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.96311950683594,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.14102935791016,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 76.16114807128906,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.69026184082031,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.74372100830078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 89.83216094970703,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 92.43183898925781,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 106.41470336914062,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.94136047363281,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 121.72789764404297,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 130.92396545410156,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 126.03604888916016,
+        "decision": "SELL 918 shares of NVDA @ $126.04",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.61751556396484,
+        "decision": "SELL 228 shares of NVDA @ $122.62",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.852294921875,
+        "decision": "BUY 877 shares of NVDA @ $134.85",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.93951416015625,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.20111846923828,
+        "decision": "SELL 838 shares of NVDA @ $114.20",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 116.96991729736328,
+        "decision": "SELL 460 shares of NVDA @ $116.97",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 98.86769104003906,
+        "decision": "SELL 592 shares of NVDA @ $98.87",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 118.02948760986328,
+        "decision": "BUY 1851 shares of NVDA @ $118.03",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 128.4450225830078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 125.55626678466797,
+        "decision": "SELL 1100 shares of NVDA @ $125.56",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 107.16413879394531,
+        "decision": "SELL 589 shares of NVDA @ $107.16",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 119.0992202758789,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.82965087890625,
+        "decision": "SELL 45 shares of NVDA @ $117.83",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 123.9975357055664,
+        "decision": "BUY 1658 shares of NVDA @ $124.00",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.80794525146484,
+        "decision": "SELL 1302 shares of NVDA @ $122.81",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.7638397216797,
+        "decision": "BUY 1176 shares of NVDA @ $134.76",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 136.8831329345703,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 140.3619384765625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 132.7145538330078,
+        "decision": "SELL 1278 shares of NVDA @ $132.71",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 148.8290557861328,
+        "decision": "BUY 1131 shares of NVDA @ $148.83",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.70974731445312,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.6197967529297,
+        "decision": "SELL 451 shares of NVDA @ $146.62",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 138.2026824951172,
+        "decision": "SELL 833 shares of NVDA @ $138.20",
+        "regime": "Sideways"
+      }
+    ],
+    "portfolio_values": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "value": 104017.70700836182
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "value": 104605.1128540039
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "value": 103546.54068374634
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "value": 102692.6726474762
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "value": 103676.66910743713
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "value": 105393.88112831116
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "value": 107931.53074073792
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "value": 106972.51797676086
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "value": 115386.63907051086
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "value": 137492.4276447296
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "value": 138139.9068927765
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "value": 139046.5865802765
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "value": 151496.41446113586
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "value": 145936.288728714
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "value": 147205.46231269836
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "value": 151766.93081855774
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "value": 160904.27090644836
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "value": 156227.665681839
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "value": 152823.134431839
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "value": 147887.5155353546
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "value": 150569.73965644836
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "value": 161016.5292072296
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "value": 167198.28335762024
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "value": 158509.32827949524
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "value": 156609.74820137024
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "value": 143473.89004707336
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "value": 149267.61705970764
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "value": 153738.73447608948
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "value": 160049.73243141174
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "value": 146504.98911476135
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "value": 141541.726228714
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "value": 150309.67423057556
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "value": 159808.99780845642
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "value": 166787.30927085876
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "value": 162087.29492759705
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "value": 159298.73093223572
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "value": 161354.09622764587
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "value": 165171.7958126068
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "value": 165017.87021064758
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "value": 163319.4594860077
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "value": 176075.48436164856
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "value": 183761.51951789856
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "value": 197769.4696521759
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "value": 198204.84044075012
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "value": 220822.3080921173
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "value": 230851.39561653137
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "value": 243088.86876106262
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "value": 244399.14717292786
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "value": 277904.12806892395
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "value": 266229.91041755676
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "value": 274855.2237110138
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "value": 272189.32545661926
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "value": 266388.0126514435
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "value": 266827.80580329895
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "value": 237213.5392627716
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "value": 265713.50850105286
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "value": 268317.6595630646
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "value": 271008.2830982208
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "value": 277434.68721199036
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "value": 312000.32795906067
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "value": 333078.22432136536
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "value": 349854.54420661926
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "value": 372587.2238330841
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "value": 360504.29408454895
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "value": 355191.89329719543
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "value": 371415.2107257843
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "value": 334156.3547077179
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "value": 325920.6690006256
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "value": 329700.07940101624
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "value": 313317.5646381378
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "value": 319315.2069644928
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "value": 341854.42464637756
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "value": 335603.15709877014
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "value": 316033.93291664124
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "value": 321703.0966205597
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "value": 321100.0511569977
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "value": 323752.24163246155
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "value": 321268.3767642975
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "value": 330665.70981788635
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "value": 334823.76310157776
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "value": 341649.17957496643
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "value": 326645.01090431213
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "value": 337667.33024024963
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "value": 333820.785364151
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "value": 333657.52509498596
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "value": 322176.5812473297
+      }
+    ],
+    "final_portfolio": {
+      "cash": 248790.95684242249,
+      "positions": {
+        "NVDA": {
+          "shares": 531,
+          "cost_basis": 141.51127512241422,
+          "current_price": 138.2026824951172,
+          "market_value": 73385.62440490723
+        }
+      },
+      "total_value": 322176.5812473297
+    }
+  },
+  {
+    "ticker": "NVDA",
+    "category": "increasing",
+    "system_mode": "full",
+    "model_type": "xgboost",
+    "success": true,
+    "metrics": {
+      "cumulative_return": 0.0,
+      "cumulative_return_pct": "0.00%",
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0,
+      "max_drawdown_pct": "0.00%",
+      "directional_accuracy": 0.0,
+      "directional_accuracy_pct": "N/A",
+      "win_rate": 0.0,
+      "win_rate_pct": "N/A",
+      "num_trades": 0,
+      "initial_value": 100000.0,
+      "final_value": 100000.0,
+      "num_decisions": 87
+    },
+    "decisions": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 25.519794464111328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.16842269897461,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.360260009765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.01454734802246,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 26.73577880859375,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.096481323242188,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.7259578704834,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.65618133544922,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.31646728515625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 31.238037109375,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 38.913658142089844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.13847732543945,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.45329666137695,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.776153564453125,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 41.84555435180664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.28623962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.87008285522461,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.04277038574219,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.418949127197266,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.236820220947266,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.52306365966797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.45439147949219,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.081748962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 49.22819137573242,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.2111930847168,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.55161666870117,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.99055480957031,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.061222076416016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.6591911315918,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.914730072021484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.0738639831543,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.30000305175781,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.47794723510742,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.91973114013672,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 49.44810485839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.745201110839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.7348518371582,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.479549407958984,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.86277389526367,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.80281066894531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.141178131103516,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 53.11041259765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 56.02178955078125,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.32783126831055,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.49274444580078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 70.05996704101562,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 73.8588638305664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 78.49427032470703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 79.06794738769531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 92.62174224853516,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.89916229248047,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 91.38836669921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 90.30992889404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.96311950683594,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.14102935791016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 76.16114807128906,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.69026184082031,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.74372100830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 89.83216094970703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 92.43183898925781,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 106.41470336914062,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.94136047363281,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 121.72789764404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 130.92396545410156,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 126.03604888916016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.61751556396484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.852294921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.93951416015625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.20111846923828,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 116.96991729736328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 98.86769104003906,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 118.02948760986328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 128.4450225830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 125.55626678466797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 107.16413879394531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 119.0992202758789,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.82965087890625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 123.9975357055664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.80794525146484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.7638397216797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 136.8831329345703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 140.3619384765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 132.7145538330078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 148.8290557861328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.70974731445312,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.6197967529297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 138.2026824951172,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      }
+    ],
+    "portfolio_values": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "value": 100000.0
+      }
+    ],
+    "final_portfolio": {
+      "cash": 100000.0,
+      "positions": {},
+      "total_value": 100000.0
+    }
+  },
+  {
+    "ticker": "NVDA",
+    "category": "increasing",
+    "system_mode": "quant_only",
+    "model_type": "hmm",
+    "success": true,
+    "metrics": {
+      "cumulative_return": 2.649853205718994,
+      "cumulative_return_pct": "264.99%",
+      "sharpe_ratio": 2.021,
+      "max_drawdown": 0.1656,
+      "max_drawdown_pct": "16.56%",
+      "directional_accuracy": 0.9153,
+      "directional_accuracy_pct": "91.53%",
+      "win_rate": 0.625,
+      "win_rate_pct": "62.50%",
+      "num_trades": 18,
+      "initial_value": 100000.0,
+      "final_value": 364985.32,
+      "num_decisions": 87
+    },
+    "decisions": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 25.519794464111328,
+        "decision": "BUY 2775 shares of NVDA @ $25.52",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.16842269897461,
+        "decision": "BUY 304 shares of NVDA @ $27.17",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.360260009765625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.01454734802246,
+        "decision": "BUY 2 shares of NVDA @ $27.01",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 26.73577880859375,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.096481323242188,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.7259578704834,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.65618133544922,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.31646728515625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 31.238037109375,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 38.913658142089844,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.13847732543945,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.45329666137695,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.776153564453125,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 41.84555435180664,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.28623962402344,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.87008285522461,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.04277038574219,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.418949127197266,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.236820220947266,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.52306365966797,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.45439147949219,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.081748962402344,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 49.22819137573242,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.2111930847168,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.55161666870117,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.99055480957031,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.061222076416016,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.6591911315918,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.914730072021484,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.0738639831543,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.30000305175781,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.47794723510742,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.91973114013672,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 49.44810485839844,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.745201110839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.7348518371582,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.479549407958984,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.86277389526367,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.80281066894531,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.141178131103516,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 53.11041259765625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 56.02178955078125,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.32783126831055,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.49274444580078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 70.05996704101562,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 73.8588638305664,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 78.49427032470703,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 79.06794738769531,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 92.62174224853516,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.89916229248047,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 91.38836669921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 90.30992889404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.96311950683594,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.14102935791016,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 76.16114807128906,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.69026184082031,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.74372100830078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 89.83216094970703,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 92.43183898925781,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 106.41470336914062,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.94136047363281,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 121.72789764404297,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 130.92396545410156,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 126.03604888916016,
+        "decision": "SELL 1677 shares of NVDA @ $126.04",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.61751556396484,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.852294921875,
+        "decision": "BUY 1096 shares of NVDA @ $134.85",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.93951416015625,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.20111846923828,
+        "decision": "SELL 1698 shares of NVDA @ $114.20",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 116.96991729736328,
+        "decision": "SELL 385 shares of NVDA @ $116.97",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 98.86769104003906,
+        "decision": "SELL 400 shares of NVDA @ $98.87",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 118.02948760986328,
+        "decision": "BUY 2456 shares of NVDA @ $118.03",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 128.4450225830078,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 125.55626678466797,
+        "decision": "SELL 1720 shares of NVDA @ $125.56",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 107.16413879394531,
+        "decision": "SELL 744 shares of NVDA @ $107.16",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 119.0992202758789,
+        "decision": "BUY 2475 shares of NVDA @ $119.10",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.82965087890625,
+        "decision": "HOLD - No trade executed",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 123.9975357055664,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.80794525146484,
+        "decision": "SELL 2236 shares of NVDA @ $122.81",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.7638397216797,
+        "decision": "BUY 2019 shares of NVDA @ $134.76",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 136.8831329345703,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 140.3619384765625,
+        "decision": "BUY signal but cannot execute (constraints or insufficient funds)",
+        "regime": "Bear"
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 132.7145538330078,
+        "decision": "SELL 2163 shares of NVDA @ $132.71",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 148.8290557861328,
+        "decision": "BUY 1933 shares of NVDA @ $148.83",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.70974731445312,
+        "decision": "HOLD - No trade executed",
+        "regime": "Sideways"
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.6197967529297,
+        "decision": "SELL 905 shares of NVDA @ $146.62",
+        "regime": "Bull"
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 138.2026824951172,
+        "decision": "SELL 1132 shares of NVDA @ $138.20",
+        "regime": "Sideways"
+      }
+    ],
+    "portfolio_values": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "value": 104574.9433517456
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "value": 105165.61043167114
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "value": 104101.16114616394
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "value": 103242.27527618408
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "value": 104353.59972381592
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "value": 106293.01696586609
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "value": 109159.03546142578
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "value": 108112.37647247314
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "value": 117113.73310089111
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "value": 140762.32150268555
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "value": 141454.9894065857
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "value": 142424.94778060913
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "value": 155743.66989898682
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "value": 149795.493724823
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "value": 151153.24504852295
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "value": 156033.06604385376
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "value": 165808.11632537842
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "value": 160805.1230278015
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "value": 157162.98386764526
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "value": 151882.89990234375
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "value": 154752.32091522217
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "value": 165928.20932006836
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "value": 172541.39839553833
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "value": 163246.0266609192
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "value": 161213.87172317505
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "value": 147161.24013519287
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "value": 153540.96598434448
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "value": 158464.30864334106
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "value": 165413.62411880493
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "value": 150498.91569900513
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "value": 145033.65016937256
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "value": 154824.8961982727
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "value": 165429.03240966797
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "value": 173218.95183563232
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "value": 167972.3053894043
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "value": 164859.41927719116
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "value": 167153.83249282837
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "value": 171415.5471382141
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "value": 171230.80043792725
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "value": 169192.31058883667
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "value": 184502.52198028564
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "value": 193472.47437286377
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "value": 209820.38890457153
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "value": 210328.48640441895
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "value": 236724.09922027588
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "value": 248428.50022888184
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "value": 262710.1876373291
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "value": 264477.686668396
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "value": 306236.92863464355
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "value": 291686.65979003906
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "value": 302436.8985671997
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "value": 299114.2316894531
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "value": 291883.71196746826
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "value": 292431.85221862793
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "value": 255521.83797454834
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "value": 291043.0374984741
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "value": 294288.74519348145
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "value": 297642.2286529541
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "value": 305651.83669281006
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "value": 348733.041847229
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "value": 375003.67238616943
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "value": 395912.9934082031
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "value": 424246.07833099365
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "value": 409186.4073944092
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "value": 404386.78660583496
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "value": 421564.4168243408
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "value": 379282.46492004395
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "value": 369936.475692749
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "value": 372157.0523529053
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "value": 364608.4240036011
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "value": 364934.1745452881
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "value": 390691.7925338745
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "value": 383547.8994445801
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "value": 369698.6270675659
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "value": 369806.0428009033
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "value": 366652.43241882324
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "value": 381973.45832824707
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "value": 379018.5156402588
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "value": 381983.57746887207
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "value": 386788.0151824951
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "value": 394674.4673461914
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "value": 377337.84635925293
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "value": 379013.75456237793
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "value": 374696.7232055664
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "value": 374513.49391174316
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "value": 364985.3205718994
+      }
+    ],
+    "final_portfolio": {
+      "cash": 364985.3205718994,
+      "positions": {},
+      "total_value": 364985.3205718994
+    }
+  },
+  {
+    "ticker": "NVDA",
+    "category": "increasing",
+    "system_mode": "quant_only",
+    "model_type": "xgboost",
+    "success": true,
+    "metrics": {
+      "cumulative_return": 0.0,
+      "cumulative_return_pct": "0.00%",
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0,
+      "max_drawdown_pct": "0.00%",
+      "directional_accuracy": 0.0,
+      "directional_accuracy_pct": "N/A",
+      "win_rate": 0.0,
+      "win_rate_pct": "N/A",
+      "num_trades": 0,
+      "initial_value": 100000.0,
+      "final_value": 100000.0,
+      "num_decisions": 87
+    },
+    "decisions": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 25.519794464111328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.16842269897461,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.360260009765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.01454734802246,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 26.73577880859375,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.096481323242188,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.7259578704834,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.65618133544922,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.31646728515625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 31.238037109375,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 38.913658142089844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.13847732543945,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.45329666137695,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.776153564453125,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 41.84555435180664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.28623962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.87008285522461,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.04277038574219,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.418949127197266,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.236820220947266,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.52306365966797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.45439147949219,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.081748962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 49.22819137573242,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.2111930847168,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.55161666870117,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.99055480957031,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.061222076416016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.6591911315918,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.914730072021484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.0738639831543,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.30000305175781,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.47794723510742,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.91973114013672,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 49.44810485839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.745201110839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.7348518371582,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.479549407958984,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.86277389526367,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.80281066894531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.141178131103516,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 53.11041259765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 56.02178955078125,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.32783126831055,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.49274444580078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 70.05996704101562,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 73.8588638305664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 78.49427032470703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 79.06794738769531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 92.62174224853516,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.89916229248047,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 91.38836669921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 90.30992889404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.96311950683594,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.14102935791016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 76.16114807128906,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.69026184082031,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.74372100830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 89.83216094970703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 92.43183898925781,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 106.41470336914062,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.94136047363281,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 121.72789764404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 130.92396545410156,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 126.03604888916016,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.61751556396484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.852294921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.93951416015625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.20111846923828,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 116.96991729736328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 98.86769104003906,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 118.02948760986328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 128.4450225830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 125.55626678466797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 107.16413879394531,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 119.0992202758789,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.82965087890625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 123.9975357055664,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.80794525146484,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.7638397216797,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 136.8831329345703,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 140.3619384765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 132.7145538330078,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 148.8290557861328,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.70974731445312,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.6197967529297,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 138.2026824951172,
+        "decision": "HOLD - No trade executed",
+        "regime": "UNKNOWN"
+      }
+    ],
+    "portfolio_values": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "value": 100000.0
+      }
+    ],
+    "final_portfolio": {
+      "cash": 100000.0,
+      "positions": {},
+      "total_value": 100000.0
+    }
+  },
+  {
+    "ticker": "NVDA",
+    "category": "increasing",
+    "system_mode": "llm_only",
+    "model_type": "none",
+    "success": true,
+    "metrics": {
+      "cumulative_return": 0.0,
+      "cumulative_return_pct": "0.00%",
+      "sharpe_ratio": 0.0,
+      "max_drawdown": 0,
+      "max_drawdown_pct": "0.00%",
+      "directional_accuracy": 0.0,
+      "directional_accuracy_pct": "N/A",
+      "win_rate": 0.0,
+      "win_rate_pct": "N/A",
+      "num_trades": 0,
+      "initial_value": 100000.0,
+      "final_value": 100000.0,
+      "num_decisions": 87
+    },
+    "decisions": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 25.519794464111328,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.16842269897461,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.360260009765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.01454734802246,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 26.73577880859375,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.096481323242188,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 27.7259578704834,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.65618133544922,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 28.31646728515625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 31.238037109375,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 38.913658142089844,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.13847732543945,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 39.45329666137695,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.776153564453125,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 41.84555435180664,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.28623962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.87008285522461,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.04277038574219,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.418949127197266,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.236820220947266,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.52306365966797,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.45439147949219,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 47.081748962402344,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 49.22819137573242,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.2111930847168,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 45.55161666870117,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.99055480957031,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.061222076416016,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 44.6591911315918,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 46.914730072021484,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 42.0738639831543,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 40.30000305175781,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 43.47794723510742,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.91973114013672,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 49.44810485839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.745201110839844,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 46.7348518371582,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 47.479549407958984,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.86277389526367,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.80281066894531,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 48.141178131103516,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 53.11041259765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 56.02178955078125,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.32783126831055,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 61.49274444580078,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 70.05996704101562,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 73.8588638305664,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 78.49427032470703,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 79.06794738769531,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 92.62174224853516,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.89916229248047,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 91.38836669921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 90.30992889404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.96311950683594,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.14102935791016,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 76.16114807128906,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 87.69026184082031,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 88.74372100830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 89.83216094970703,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 92.43183898925781,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 106.41470336914062,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.94136047363281,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 121.72789764404297,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 130.92396545410156,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 126.03604888916016,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.61751556396484,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.852294921875,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.93951416015625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 114.20111846923828,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 116.96991729736328,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 98.86769104003906,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 118.02948760986328,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 128.4450225830078,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 125.55626678466797,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 107.16413879394531,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 119.0992202758789,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 117.82965087890625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 123.9975357055664,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 122.80794525146484,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 134.7638397216797,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 136.8831329345703,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 140.3619384765625,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "ticker": "NVDA",
+        "price": 132.7145538330078,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 148.8290557861328,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.70974731445312,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 146.6197967529297,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "ticker": "NVDA",
+        "price": 138.2026824951172,
+        "decision": "HOLD - No trade executed",
+        "regime": "DISABLED"
+      }
+    ],
+    "portfolio_values": [
+      {
+        "date": "2023-03-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-03-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-06 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-04-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-05-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-20 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-06-27 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-07-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-09 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-16 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-23 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-08-30 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-09-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-10-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-16 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-11-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-01 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-08 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-15 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2023-12-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-02 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-09 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-17 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-24 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-01-31 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-22 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-02-29 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-03-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-04-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-05-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-06-25 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-02 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-07-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-07 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-14 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-21 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-08-28 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-05 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-12 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-19 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-09-26 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-03 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-10 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-17 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-24 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-10-31 00:00:00-04:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-07 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-14 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-21 00:00:00-05:00",
+        "value": 100000.0
+      },
+      {
+        "date": "2024-11-29 00:00:00-05:00",
+        "value": 100000.0
+      }
+    ],
+    "final_portfolio": {
+      "cash": 100000.0,
+      "positions": {},
+      "total_value": 100000.0
+    }
+  }
+]
