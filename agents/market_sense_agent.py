@@ -233,16 +233,72 @@ Respond in the following JSON format:
                     historical_comparison=result.get("historical_comparison", "")
                 )
 
+
             except (json.JSONDecodeError, ValueError) as e:
+
                 logger.warning(f"Failed to parse LLM response as JSON: {e}")
+
                 # Fallback: create insight from raw response
+
                 insight = MarketInsight(
+
                     outlook="NEUTRAL",
+
                     confidence=0.5,
+
                     reasoning=response.content,
+
                     risk_flags=[],
+
                     historical_comparison=""
+
                 )
+
+                # FALLBACK: If LLM returns NEUTRAL, use technical indicators
+
+            if insight.outlook == "NEUTRAL":
+
+                ticker_data = market_state.get("ticker_data", {})
+
+                momentum = ticker_data.get("momentum_1m", 0) or 0
+
+                # Use momentum to determine outlook
+
+                if momentum > 0.03:  # >3% monthly gain
+
+                    insight = MarketInsight(
+
+                        outlook="BULLISH",
+
+                        confidence=min(0.7, 0.5 + abs(momentum)),
+
+                        reasoning=f"Technical momentum positive ({momentum * 100:.1f}% 1M). " + insight.reasoning,
+
+                        risk_flags=insight.risk_flags,
+
+                        historical_comparison=insight.historical_comparison
+
+                    )
+
+                    logger.info(f"Fallback: NEUTRAL -> BULLISH based on momentum {momentum:.3f}")
+
+                elif momentum < -0.03:  # <-3% monthly loss
+
+                    insight = MarketInsight(
+
+                        outlook="BEARISH",
+
+                        confidence=min(0.7, 0.5 + abs(momentum)),
+
+                        reasoning=f"Technical momentum negative ({momentum * 100:.1f}% 1M). " + insight.reasoning,
+
+                        risk_flags=insight.risk_flags,
+
+                        historical_comparison=insight.historical_comparison
+
+                    )
+
+                    logger.info(f"Fallback: NEUTRAL -> BEARISH based on momentum {momentum:.3f}")
 
             logs.append(f"Analysis complete: {insight.outlook} (confidence: {insight.confidence})")
 

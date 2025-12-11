@@ -338,6 +338,11 @@ Be concise and write production-quality code."""
 
             exec_result = self.execute_python(training_code, variables=variables)
 
+            # DEBUG: Log execution details
+            logger.info(f"Training exec success: {exec_result['success']}")
+            if exec_result.get('error'):
+                logger.error(f"Training error: {exec_result['error']}")
+
             if not exec_result['success']:
                 return AgentOutput(
                     success=False,
@@ -413,37 +418,64 @@ Be concise and write production-quality code."""
     Write Python code to train an XGBoost classifier for stock direction prediction.
 
     CRITICAL REQUIREMENTS:
-    1. Write DIRECTLY EXECUTABLE code - DO NOT define a function
-    2. These variables are ALREADY DEFINED and available:
-       - prices: pandas Series of close prices
-       - returns: numpy array of daily returns
-       - target: numpy array of binary targets (1=up, 0=down)
-       - features: pandas DataFrame of technical indicators (may be None)
+    1. Write DIRECTLY EXECUTABLE code - NO function definitions
+    2. These variables are ALREADY DEFINED:
+       - prices: pandas SERIES (not DataFrame!) of close prices with DatetimeIndex
        - ticker: string
        - model_path: string
-    3. At the END of your code, you MUST create a variable called 'result'
+    3. At the END, create a variable called 'result'
 
-    The code should:
-    1. Create features from prices/returns if features is None:
-       - RSI (14-day)
-       - MACD
-       - Moving averages (5, 10, 20 day)
-       - Momentum
-       - Volatility
-    2. Handle NaN values (dropna or fillna)
-    3. Train XGBoost classifier on the features and target
-    4. Save the trained model AND the feature scaler to model_path using joblib.dump()
-    5. Create a 'result' dictionary with:
-        - 'model_type': str ('XGBoost')
-        - 'accuracy': float (training accuracy)
-        - 'n_features': int
-        - 'feature_names': list of feature names
-        - 'n_samples': int
+    EXACT CODE STRUCTURE TO FOLLOW:
 
-    Available imports: np, pd, joblib
-    You may also import: xgboost as xgb, sklearn
+    1. Create features DataFrame with prices.index:
+       feature_df = pd.DataFrame(index=prices.index)
 
-    Write ONLY executable Python code. NO function definitions. NO explanations."""
+    2. Calculate RSI (14-day):
+       delta = prices.diff()
+       gain = delta.copy()
+       loss = delta.copy()
+       gain[gain < 0] = 0
+       loss[loss > 0] = 0
+       avg_gain = gain.rolling(window=14).mean()
+       avg_loss = abs(loss).rolling(window=14).mean()
+       rs = avg_gain / avg_loss
+       feature_df['rsi'] = 100.0 - (100.0 / (1.0 + rs))
+
+    3. Calculate MACD:
+       ema_12 = prices.ewm(span=12, adjust=False).mean()
+       ema_26 = prices.ewm(span=26, adjust=False).mean()
+       feature_df['macd'] = ema_12 - ema_26
+
+    4. Calculate SMA ratios (5, 10, 20, 50):
+       feature_df['sma_5'] = prices / prices.rolling(window=5).mean()
+       (similar for 10, 20, 50)
+
+    5. Calculate Momentum (5-day, 10-day):
+       feature_df['momentum_5'] = prices.pct_change(5)
+       feature_df['momentum_10'] = prices.pct_change(10)
+
+    6. Calculate Volatility:
+       feature_df['volatility'] = prices.pct_change().rolling(window=14).std()
+
+    7. Add embedding factor placeholders (for news sentiment during prediction):
+       feature_df['news_sentiment'] = 0.0
+       feature_df['news_magnitude'] = 0.0
+       feature_df['news_novelty'] = 0.5
+
+    8. Create target and ALIGN with features:
+       target_series = (prices.shift(-1) > prices).astype(int)
+       feature_df['target'] = target_series
+       feature_df = feature_df.dropna()  # Drop NaN ONCE after combining
+
+    9. Split, scale, train XGBoost
+
+    10. Save as dict: joblib.dump({{'model': model, 'scaler': scaler, 'feature_names': list(X.columns)}}, model_path)
+
+    11. Create result dict with: model_type, accuracy, n_features, feature_names, n_samples
+
+    Available imports: np, pd, joblib, xgb, StandardScaler, train_test_split
+
+    Write ONLY the executable Python code. NO markdown. NO explanations."""
 
     def predict_hmm(self, ticker: str, returns: np.ndarray) -> Dict[str, Any]:
         """
@@ -496,9 +528,14 @@ Be concise and write production-quality code."""
                 "model_type": "hmm"
             }
 
-    def predict_xgboost(self, ticker: str, prices: pd.Series, features: pd.DataFrame = None) -> Dict[str, Any]:
+    def predict_xgboost(self, ticker: str, prices: pd.Series, features: Dict[str, float] = None) -> Dict[str, Any]:
         """
         Generate prediction using trained XGBoost model.
+
+        Args:
+            ticker: Stock ticker
+            prices: Price series
+            features: Dict of feature values including embedding factors (news_sentiment, news_magnitude, news_novelty)
         """
         if self.model is None:
             model_path = self._get_model_file_path(ticker, "xgboost")
@@ -515,18 +552,21 @@ Be concise and write production-quality code."""
             if isinstance(self.model, dict):
                 model = self.model.get('model')
                 scaler = self.model.get('scaler')
-                feature_names = self.model.get('feature_names', [])
             else:
                 model = self.model
                 scaler = None
-                feature_names = []
 
-            # Use provided features or compute from prices
-            if features is not None and len(features) > 0:
-                X = features.iloc[-1:].values
-            else:
-                # Compute basic features from prices
-                X = self._compute_basic_features(prices)
+            # Extract embedding factors from features dict
+            embedding_factors = None
+            if features is not None:
+                embedding_factors = {
+                    "news_sentiment": features.get("news_sentiment", 0.0),
+                    "news_magnitude": features.get("news_magnitude", 0.0),
+                    "news_novelty": features.get("news_novelty", 0.5)
+                }
+
+            # Compute features from prices + embedding factors
+            X = self._compute_basic_features(prices, embedding_factors)
 
             # Scale if scaler available
             if scaler is not None:
@@ -562,20 +602,39 @@ Be concise and write production-quality code."""
                 "model_type": "xgboost"
             }
 
-    def _compute_basic_features(self, prices: pd.Series) -> np.ndarray:
-        """Compute basic technical features from prices for XGBoost prediction."""
-        # Simple features - agent-generated code should be more comprehensive
-        returns = prices.pct_change()
 
-        features = {
-            'return_1d': returns.iloc[-1],
-            'return_5d': prices.pct_change(5).iloc[-1],
-            'return_10d': prices.pct_change(10).iloc[-1],
-            'volatility_20d': returns.tail(20).std(),
-            'sma_ratio': prices.iloc[-1] / prices.tail(20).mean(),
-        }
+    def _compute_basic_features(self, prices: pd.Series, embedding_factors: Dict[str, float] = None) -> np.ndarray:
+        """Compute technical features + embedding factors (12 features total)."""
 
-        return np.array([[v for v in features.values()]])
+        # Original 9 price-based features
+        rsi_val = (prices.iloc[-1] - prices.tail(14).mean()) / prices.tail(14).std() if prices.tail(
+            14).std() != 0 else 0
+        macd_val = prices.tail(26).mean() - prices.tail(12).mean()
+        sma_5 = prices.iloc[-1] / prices.tail(5).mean() if prices.tail(5).mean() != 0 else 1
+        sma_10 = prices.iloc[-1] / prices.tail(10).mean() if prices.tail(10).mean() != 0 else 1
+        sma_20 = prices.iloc[-1] / prices.tail(20).mean() if prices.tail(20).mean() != 0 else 1
+        sma_50 = prices.iloc[-1] / prices.tail(50).mean() if prices.tail(50).mean() != 0 else 1
+        momentum_5 = prices.pct_change(5).iloc[-1] if len(prices) > 5 else 0
+        momentum_10 = prices.pct_change(10).iloc[-1] if len(prices) > 10 else 0
+        volatility = prices.pct_change().tail(14).std() if len(prices) > 14 else 0
+
+        # 3 embedding-based factors
+        news_sentiment = 0.0
+        news_magnitude = 0.0
+        news_novelty = 0.5
+        if embedding_factors:
+            news_sentiment = embedding_factors.get("news_sentiment", 0.0)
+            news_magnitude = embedding_factors.get("news_magnitude", 0.0)
+            news_novelty = embedding_factors.get("news_novelty", 0.5)
+
+        features = np.array([[
+            rsi_val, macd_val, sma_5, sma_10, sma_20, sma_50,
+            momentum_5, momentum_10, volatility,
+            news_sentiment, news_magnitude, news_novelty  # NEW
+        ]])
+
+        features = np.nan_to_num(features, nan=0.0)
+        return features
 
     # ==================== Tool Implementations ====================
 
@@ -681,12 +740,6 @@ Be concise and write production-quality code."""
     def load_model(self, path: str) -> Any:
         """
         Load trained model from disk.
-
-        Args:
-            path: Path to model file
-
-        Returns:
-            Loaded model object or None
         """
         try:
             if not os.path.exists(path):
@@ -695,12 +748,21 @@ Be concise and write production-quality code."""
 
             model_data = joblib.load(path)
 
-            # Extract model from saved data
+            # Handle different save formats
             if isinstance(model_data, dict) and "model" in model_data:
-                self.model = model_data["model"]
-                logger.info(f"Loaded model from {path} (saved at {model_data.get('saved_at', 'unknown')})")
+                # Dict format: {'model': model, 'scaler': scaler, ...}
+                self.model = model_data
+                logger.info(f"Loaded model (dict format) from {path}")
+            elif isinstance(model_data, tuple) and len(model_data) == 2:
+                # Tuple format from LLM-generated code: (model, scaler)
+                self.model = {
+                    'model': model_data[0],
+                    'scaler': model_data[1],
+                    'feature_names': []
+                }
+                logger.info(f"Loaded model (tuple format) from {path}")
             else:
-                # Direct model object
+                # HMM or other format - store directly
                 self.model = model_data
                 logger.info(f"Loaded model from {path}")
 
@@ -709,6 +771,8 @@ Be concise and write production-quality code."""
         except Exception as e:
             logger.error(f"Error loading model from {path}: {e}")
             return None
+
+
 
     def _extract_code(self, text: str) -> str:
         """

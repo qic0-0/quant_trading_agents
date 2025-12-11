@@ -136,6 +136,79 @@ You have access to the following tools:
             }
         )
 
+    # Add this new method (around line 200)
+    def compute_embedding_factors(self, news_texts: List[str]) -> Dict[str, float]:
+        """
+        Convert news embeddings to numerical factors for Quant Model.
+
+        Args:
+            news_texts: List of news headlines/summaries
+
+        Returns:
+            Dict of embedding-derived factors
+        """
+        if not news_texts:
+            return {
+                "news_sentiment": 0.0,
+                "news_magnitude": 0.0,
+                "news_novelty": 0.5
+            }
+
+        try:
+            # Reference embeddings for sentiment
+            bullish_ref = self.embed_text("stock price surge strong earnings beat bullish momentum growth")
+            bearish_ref = self.embed_text("stock crash decline losses bearish downturn sell-off warning")
+
+            if not bullish_ref or not bearish_ref:
+                return {"news_sentiment": 0.0, "news_magnitude": 0.0, "news_novelty": 0.5}
+
+            bullish_ref = np.array(bullish_ref)
+            bearish_ref = np.array(bearish_ref)
+
+            # Compute average news embedding
+            news_embeddings = []
+            for text in news_texts:
+                emb = self.embed_text(text)
+                if emb:
+                    news_embeddings.append(np.array(emb))
+
+            if not news_embeddings:
+                return {"news_sentiment": 0.0, "news_magnitude": 0.0, "news_novelty": 0.5}
+
+            avg_news_emb = np.mean(news_embeddings, axis=0)
+
+            # Cosine similarity helper
+            def cosine_sim(a, b):
+                return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-8)
+
+            # Sentiment: similarity to bullish vs bearish (-1 to +1)
+            bull_sim = cosine_sim(avg_news_emb, bullish_ref)
+            bear_sim = cosine_sim(avg_news_emb, bearish_ref)
+            sentiment_score = float(bull_sim - bear_sim)
+
+            # Magnitude: how "financial" the news is (0 to 1)
+            magnitude = float((bull_sim + bear_sim) / 2)
+
+            # Novelty: how different from stored historical news (0 to 1)
+            novelty = 0.5  # Default
+            if self.vector_store:
+                similarities = []
+                for item in self.vector_store[-20:]:  # Compare to recent 20
+                    sim = cosine_sim(avg_news_emb, item["embedding"])
+                    similarities.append(sim)
+                if similarities:
+                    novelty = float(1 - np.mean(similarities))  # Lower similarity = higher novelty
+
+            return {
+                "news_sentiment": sentiment_score,
+                "news_magnitude": magnitude,
+                "news_novelty": novelty
+            }
+
+        except Exception as e:
+            logger.error(f"Error computing embedding factors: {e}")
+            return {"news_sentiment": 0.0, "news_magnitude": 0.0, "news_novelty": 0.5}
+
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
         """
         Run feature engineering pipeline.
@@ -175,15 +248,22 @@ You have access to the following tools:
                         if col not in ['Open', 'High', 'Low', 'Close', 'Volume']:
                             ticker_features[col] = latest[col] if pd.notna(latest[col]) else None
 
+
             # Compute factors
             ticker_fundamentals = fundamentals.get(ticker, {})
             factors = self.compute_factors(prices, ticker_fundamentals)
             ticker_features.update(factors)
 
+            # Compute embedding factors from news  <-- ADD THESE 4 LINES
+            ticker_news = news.get(ticker, [])
+            ticker_news_texts = [f"{n.get('headline', '')} {n.get('summary', '')}"
+                                 for n in ticker_news if n.get('headline')]
+            embedding_factors = self.compute_embedding_factors(ticker_news_texts)
+            ticker_features.update(embedding_factors)
+
             features[ticker] = ticker_features
 
             # Process news: embed and store
-            ticker_news = news.get(ticker, [])
             for article in ticker_news:
                 text = f"{article.get('headline', '')} {article.get('summary', '')}"
                 if text.strip():

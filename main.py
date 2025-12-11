@@ -252,18 +252,31 @@ class TradingSystem:
                 historical_prices = price_df.loc[:date]
                 current_price = historical_prices['Close'].iloc[-1]
 
+                # Get fundamentals (needed by both QUANT and MARKET-SENSE)
+                ticker_fundamentals = collected_data.get("fundamentals", {}).get(ticker, {})
+
                 # ========== QUANT AGENT (skip if llm_only) ==========
                 if mode != "llm_only":
-                    # Retrain model using Quant Agent with expanding window
+                    # Compute features including embedding factors
+                    feature_result = self.feature_agent.run({
+                        "price_data": {ticker: historical_prices},
+                        "fundamentals": {ticker: ticker_fundamentals},
+                        "news": collected_data.get("news", {})
+                    })
+                    ticker_features = feature_result.data.get("features", {}).get(ticker, {})
+
+                    # Pass features to Quant Model
                     train_result = self.quant_model_agent.run({
                         "mode": "train",
-                        "price_data": {ticker: historical_prices}
+                        "price_data": {ticker: historical_prices},
+                        "features": {ticker: ticker_features}  # NEW: includes embedding factors
                     })
 
                     # Predict using freshly trained model
                     quant_result = self.quant_model_agent.run({
                         "mode": "predict",
-                        "price_data": {ticker: historical_prices}
+                        "price_data": {ticker: historical_prices},
+                        "features": {ticker: ticker_features}  # Also pass for predict
                     })
                     predictions = quant_result.data.get("predictions", {})
                     quant_signal = predictions.get(ticker, {})
@@ -280,9 +293,6 @@ class TradingSystem:
 
                 # Compute features for current window
                 features_df = self.feature_agent.compute_technical_indicators(historical_prices)
-
-                # Get fundamentals (collected at start)
-                ticker_fundamentals = collected_data.get("fundamentals", {}).get(ticker, {})
 
                 # ========== MARKET-SENSE AGENT (skip if quant_only) ==========
                 if mode != "quant_only":
@@ -324,13 +334,28 @@ class TradingSystem:
                     "market_insight": market_insight
                 })
 
+                # Get aggregated signal for reasoning
+                aggregated_signal = decision_result.data.get("aggregated_signal", {})
+
                 decisions.append({
                     "date": str(date),
                     "ticker": ticker,
                     "price": current_price,
                     "decision": decision_result.data.get("trade_result", {}).get("message", ""),
-                    "regime": quant_signal.get("regime", "UNKNOWN")
+                    "regime": quant_signal.get("regime", "UNKNOWN"),
+                    "reasoning": aggregated_signal.get("reasoning", ""),
+                    "market_outlook": market_insight.get("outlook", "UNKNOWN"),
+                    "market_confidence": market_insight.get("confidence", 0),
+                    "signal_direction": aggregated_signal.get("direction", "UNKNOWN"),
+                    "signal_strength": aggregated_signal.get("strength", 0)
                 })
+
+                # DEBUG: Log for llm_only mode
+                if mode == "llm_only":
+                    logger.info(f"  LLM-ONLY Debug: outlook={market_insight.get('outlook')}, "
+                                f"confidence={market_insight.get('confidence')}, "
+                                f"direction={aggregated_signal.get('direction')}, "
+                                f"strength={aggregated_signal.get('strength', 0):.3f}")
 
                 portfolio_values.append({
                     "date": str(date),
@@ -483,30 +508,30 @@ def main():
         type=str,
         help="Path to model design config (for train mode)"
     )
-    
+
     args = parser.parse_args()
-    
+
     # Print banner
     print("=" * 70)
     print("             Quant Trading Agent System")
     print("=" * 70)
     print()
-    
+
     # Initialize system
     system = TradingSystem(config, system_mode=args.system_mode)
-    
+
     # Run based on mode
     if args.mode == "predict":
         result = system.run_single_prediction(args.ticker)
         print_prediction_result(result)
-        
+
     elif args.mode == "backtest":
         if not args.start or not args.end:
             parser.error("Backtest mode requires --start and --end dates")
         tickers = args.tickers or [args.ticker]
         result = system.run_backtest(tickers, args.start, args.end)
         print_backtest_result(result)
-        
+
     elif args.mode == "train":
         if not args.config:
             parser.error("Train mode requires --config path")

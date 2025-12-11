@@ -2,7 +2,7 @@
 Experiment 5: LLM-Based Evaluation of Market-Sense Agent Responses
 ===================================================================
 
-Reads experiment 5 results and uses Claude API to evaluate each response
+Reads experiment 5 results and uses LLM to evaluate each response
 according to the 5 evaluation criteria.
 
 Usage:
@@ -17,7 +17,18 @@ from glob import glob
 from typing import Dict, List, Any
 import pandas as pd
 from datetime import datetime
-import anthropic
+import logging
+
+# Use existing LLM client
+from llm.llm_client import LLMClient, Message
+from config.config import config
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
 
 # ============== EVALUATION PROMPT ==============
 
@@ -79,7 +90,7 @@ Please evaluate this response according to the 5 criteria and provide scores in 
 # ============== EVALUATOR CLASS ==============
 
 class Experiment5Evaluator:
-    """Evaluates Market-Sense Agent responses using Claude API."""
+    """Evaluates Market-Sense Agent responses using LLM."""
     
     def __init__(self, results_dir: str, output_dir: str = None):
         self.results_dir = results_dir
@@ -87,8 +98,9 @@ class Experiment5Evaluator:
         self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.evaluations = []
         
-        # Initialize Anthropic client
-        self.client = anthropic.Anthropic()
+        # Initialize LLM client using existing config
+        logger.info("Initializing LLM client...")
+        self.llm_client = LLMClient(config.llm)
         
         # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)
@@ -110,7 +122,7 @@ class Experiment5Evaluator:
         return results
     
     def evaluate_single(self, question: str, answer: str, question_id: str) -> Dict[str, Any]:
-        """Evaluate a single Q&A pair using Claude API."""
+        """Evaluate a single Q&A pair using LLM."""
         print(f"   Evaluating {question_id}...")
         
         if not answer or answer.strip() == "":
@@ -127,24 +139,20 @@ class Experiment5Evaluator:
             }
         
         try:
-            # Call Claude API
-            message = self.client.messages.create(
-                model="claude-sonnet-4-20250514",
-                max_tokens=500,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": EVALUATION_USER_TEMPLATE.format(
-                            question=question,
-                            answer=answer
-                        )
-                    }
-                ],
-                system=EVALUATION_SYSTEM_PROMPT
-            )
+            # Build messages for LLM
+            messages = [
+                Message(role="system", content=EVALUATION_SYSTEM_PROMPT),
+                Message(role="user", content=EVALUATION_USER_TEMPLATE.format(
+                    question=question,
+                    answer=answer
+                ))
+            ]
+            
+            # Call LLM using existing client
+            response = self.llm_client.chat(messages, temperature=0.3)
             
             # Parse response
-            response_text = message.content[0].text.strip()
+            response_text = response.content.strip()
             
             # Try to parse JSON
             # Handle potential markdown code blocks
@@ -152,6 +160,12 @@ class Experiment5Evaluator:
                 response_text = response_text.split("```json")[1].split("```")[0].strip()
             elif "```" in response_text:
                 response_text = response_text.split("```")[1].split("```")[0].strip()
+            
+            # Find JSON in response
+            start_idx = response_text.find('{')
+            end_idx = response_text.rfind('}') + 1
+            if start_idx != -1 and end_idx > start_idx:
+                response_text = response_text[start_idx:end_idx]
             
             scores = json.loads(response_text)
             

@@ -48,7 +48,7 @@ logger = logging.getLogger(__name__)
 
 EXPERIMENT_CONFIG = {
     "name": "Experiment 1: Main System Comparison",
-    "start_date": "2023-01-01",
+    "start_date": "2024-01-01",
     "end_date": "2024-12-01",
     "initial_cash": 100000.0,
     "risk_free_rate": 0.05,  # 5% annualized for Sharpe ratio

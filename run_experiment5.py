@@ -15,6 +15,7 @@ import os
 import logging
 from datetime import datetime
 from typing import Dict, List, Any
+from llm.llm_client import LLMClient
 
 # Import Market-Sense Agent
 from agents.market_sense_agent import MarketSenseAgent
@@ -146,10 +147,11 @@ class Experiment5Runner:
         
         # Create output directory
         os.makedirs(output_dir, exist_ok=True)
-        
-        # Initialize Market-Sense Agent
+
+        # Initialize LLM client and Market-Sense Agent
         logger.info("Initializing Market-Sense Agent...")
-        self.agent = MarketSenseAgent(config)
+        self.llm_client = LLMClient(config.llm)
+        self.agent = MarketSenseAgent(self.llm_client, config)
         
         logger.info(f"Results will be saved to: {output_dir}")
     

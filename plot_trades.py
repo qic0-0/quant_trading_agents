@@ -162,7 +162,7 @@ def plot_single_result(
             linewidths=1.5
         )
     
-    # Format x-axis for 2-year data
+    # Format x-axis for 1-year data
     ax.xaxis.set_major_locator(mdates.MonthLocator(interval=2))  # Every 2 months
     ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
     ax.xaxis.set_minor_locator(mdates.MonthLocator())  # Minor tick every month
@@ -221,7 +221,7 @@ def plot_single_result(
 def plot_all_results(
     results: List[Dict],
     output_dir: str,
-    start_date: str = "2023-01-01",
+    start_date: str = "2024-01-01",
     end_date: str = "2024-12-01"
 ):
     """Plot all backtest results."""
@@ -267,7 +267,7 @@ def plot_comparison(
     results: List[Dict],
     ticker: str,
     output_dir: str,
-    start_date: str = "2023-01-01",
+    start_date: str = "2024-01-01",
     end_date: str = "2024-12-01"
 ):
     """
