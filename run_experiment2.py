@@ -21,17 +21,17 @@ EXPERIMENT_CONFIG = {
     "start_date": "2024-01-01",
     "end_date": "2024-12-01",
     "initial_cash": 100000.0,
-    "risk_free_rate": 0.05,  # 5% annualized for Sharpe ratio
+    "risk_free_rate": 0.05,
 
     "stocks": {
-        "increasing": ["JNJ"],  # Low vol uptrend (contrast to NVDA)
-        "decreasing": ["VZ"],  # Low vol downtrend (contrast to MRNA)
-        "stable": ["F"]  # Higher vol cyclical (contrast to KO)
+        "increasing": ["JNJ"],
+        "decreasing": ["VZ"],
+        "stable": ["F"]
     },
 
     "system_modes": ["full", "quant_only", "llm_only"],
 
-    "model_types": ["hmm", "xgboost"]  # Both quant models
+    "model_types": ["hmm", "xgboost"]
 }
 
 def calculate_metrics(
