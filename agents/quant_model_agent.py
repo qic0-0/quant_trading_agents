@@ -1,18 +1,3 @@
-"""
-Quant Modeling Agent - Agent 3 in the Quant Trading System.
-
-Responsibilities:
-- Read model design document
-- Write Python code to implement the model (ONCE)
-- Reuse the code with new data for training
-- Generate predictions with confidence scores
-
-Key Design:
-- Agent writes code based on design document
-- Code is saved and reused (no LLM calls after first time)
-- Only data changes between training runs
-"""
-
 from typing import Dict, Any, Optional
 from dataclasses import dataclass
 from datetime import datetime
@@ -22,59 +7,42 @@ import joblib
 import os
 import logging
 import re
-
 logger = logging.getLogger(__name__)
-
 from .base_agent import BaseAgent, AgentOutput
 from llm.llm_client import Message
-
+import io
+import sys
+from contextlib import redirect_stdout, redirect_stderr
 
 @dataclass
 class ModelPrediction:
-    """Prediction output from the quant model."""
     ticker: str
-    expected_return: float  # Predicted return (e.g., 0.023 = +2.3%)
-    confidence: float  # 0.0 to 1.0
-    horizon: str  # e.g., "5-day"
-    regime: str  # Current regime: "Bull", "Bear", "Sideways"
+    expected_return: float
+    confidence: float
+    horizon: str
+    regime: str
     regime_probabilities: Dict[str, float]
 
-
 class QuantModelingAgent(BaseAgent):
-    """
-    Agent that writes and reuses training code.
 
-    Workflow:
-    1. First time: Read design doc → Write code → Save code → Execute
-    2. Subsequent: Load saved code → Execute with new data
-
-    This makes training fast after the initial code generation.
-    """
 
     def __init__(self, llm_client, config):
         super().__init__("QuantModelingAgent", llm_client, config)
         self.model = None
         self.model_path = config.model.model_path
-
-        # Support multiple model designs
         self.design_docs = {
-            "hmm": config.model.design_doc_path,  # Original HMM design
+            "hmm": config.model.design_doc_path,
             "xgboost": getattr(config.model, 'xgboost_design_doc_path',
-                               config.model.design_doc_path.replace('model_design.md', 'model_design_xgboost.md'))
-        }
-
-        # Default model type (can be overridden in run())
+                               config.model.design_doc_path.replace('model_design.md', 'model_design_xgboost.md'))}
         self.default_model_type = getattr(config.model, 'model_type', 'hmm')
-
-        # Create models directory if not exists
         os.makedirs(self.model_path, exist_ok=True)
 
     def _get_training_code_path(self, model_type: str) -> str:
-        """Get training code path for specific model type."""
+
         return os.path.join(self.model_path, f"train_{model_type}.py")
 
     def _get_model_file_path(self, ticker: str, model_type: str) -> str:
-        """Get model file path for specific ticker and model type."""
+
         return os.path.join(self.model_path, f"{ticker}_{model_type}.joblib")
 
     @property
@@ -97,7 +65,6 @@ When writing training code:
 Be concise and write production-quality code."""
 
     def _register_tools(self):
-        """Register quant modeling tools."""
 
         self.register_tool(
             name="read_document",
@@ -126,29 +93,11 @@ Be concise and write production-quality code."""
         )
 
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
-        """
-        Run quant modeling task.
 
-        Modes:
-        - "train": Train models for each ticker
-        - "predict": Generate predictions using trained models
-
-        Args:
-            input_data: {
-                "mode": "train" or "predict",
-                "price_data": Dict[str, pd.DataFrame],  # ticker -> price DataFrame
-                "model_type": "hmm" or "xgboost" (optional, defaults to config)
-                "features": Dict[str, pd.DataFrame]  # for XGBoost: ticker -> features DataFrame
-            }
-
-        Returns:
-            AgentOutput with training results or predictions
-        """
         mode = input_data.get("mode", "predict")
         price_data = input_data.get("price_data", {})
         model_type = input_data.get("model_type", self.default_model_type)
-        features_data = input_data.get("features", {})  # For XGBoost
-
+        features_data = input_data.get("features", {})
         logs = []
         logs.append(f"Using model type: {model_type}")
 
@@ -159,13 +108,11 @@ Be concise and write production-quality code."""
                 logger.info(f"Training {model_type} model for {ticker}...")
                 logs.append(f"Training {model_type} model for {ticker}...")
 
-                # Extract close prices
                 if isinstance(prices_df, pd.DataFrame) and 'Close' in prices_df.columns:
                     prices = prices_df['Close']
                 else:
                     prices = prices_df
 
-                # Get features if available (for XGBoost)
                 features = features_data.get(ticker, None)
 
                 result = self.train_model(ticker, prices, model_type=model_type, features=features)
@@ -190,20 +137,14 @@ Be concise and write production-quality code."""
                 logger.info(f"Generating {model_type} prediction for {ticker}...")
                 logs.append(f"Generating {model_type} prediction for {ticker}...")
 
-                # Extract close prices
                 if isinstance(prices_df, pd.DataFrame) and 'Close' in prices_df.columns:
                     prices = prices_df['Close']
                 else:
                     prices = prices_df
 
-                # Get features if available
                 features = features_data.get(ticker, None)
-
-                # Load model
                 model_path = self._get_model_file_path(ticker, model_type)
                 self.load_model(model_path)
-
-                # Generate prediction based on model type
                 if model_type == "hmm":
                     returns = prices.pct_change(periods=5).dropna().values.reshape(-1, 1)
                     prediction = self.predict_hmm(ticker, returns)
@@ -233,24 +174,10 @@ Be concise and write production-quality code."""
 
     def train_model(self, ticker: str, prices: pd.Series, model_type: str = "hmm",
                     n_states: int = 3, features: pd.DataFrame = None) -> AgentOutput:
-        """
-        Train model using agent-written code (reused if exists).
-
-        Args:
-            ticker: Stock ticker
-            prices: Price series
-            model_type: "hmm" or "xgboost"
-            n_states: Number of HMM states (for HMM only)
-            features: Feature DataFrame (for XGBoost only)
-
-        Returns:
-            AgentOutput with training results
-        """
         logs = []
         training_code_path = self._get_training_code_path(model_type)
         design_doc_path = self.design_docs.get(model_type, self.design_docs["hmm"])
 
-        # Check if training code already exists
         if os.path.exists(training_code_path):
             logger.info(f"Reusing {model_type} training code from {training_code_path}")
             logs.append(f"Reusing existing {model_type} training code")
@@ -258,11 +185,8 @@ Be concise and write production-quality code."""
             with open(training_code_path, 'r') as f:
                 training_code = f.read()
         else:
-            # FIRST TIME: Agent writes the code
             logger.info(f"No {model_type} training code found. Agent will write code based on design doc.")
             logs.append(f"Writing new {model_type} training code based on design document...")
-
-            # Read design document
             design_doc = self.read_document(design_doc_path)
 
             if not design_doc:
@@ -273,7 +197,6 @@ Be concise and write production-quality code."""
                     logs=logs
                 )
 
-            # Generate appropriate prompt based on model type
             if model_type == "hmm":
                 prompt = self._get_hmm_training_prompt(design_doc)
             elif model_type == "xgboost":
@@ -302,17 +225,14 @@ Be concise and write production-quality code."""
                     logs=logs + [f"LLM response: {response.content}"]
                 )
 
-            # Save code for future reuse
             with open(training_code_path, 'w') as f:
                 f.write(training_code)
             logger.info(f"Saved {model_type} training code to {training_code_path}")
             logs.append(f"Saved training code to {training_code_path}")
 
-        # Execute the code
         try:
             model_file_path = self._get_model_file_path(ticker, model_type)
 
-            # Prepare variables based on model type
             if model_type == "hmm":
                 returns = prices.pct_change(periods=5).dropna().values.reshape(-1, 1)
                 variables = {
@@ -322,11 +242,8 @@ Be concise and write production-quality code."""
                     'n_states': n_states
                 }
             elif model_type == "xgboost":
-                # Prepare data for XGBoost
                 returns = prices.pct_change().dropna()
-                # Create target (next day direction)
                 target = (prices.shift(-1) > prices).astype(int).dropna()
-
                 variables = {
                     'prices': prices,
                     'returns': returns.values,
@@ -337,8 +254,6 @@ Be concise and write production-quality code."""
                 }
 
             exec_result = self.execute_python(training_code, variables=variables)
-
-            # DEBUG: Log execution details
             logger.info(f"Training exec success: {exec_result['success']}")
             if exec_result.get('error'):
                 logger.error(f"Training error: {exec_result['error']}")
@@ -381,7 +296,6 @@ Be concise and write production-quality code."""
             )
 
     def _get_hmm_training_prompt(self, design_doc: str) -> str:
-        """Generate prompt for HMM training code."""
         return f"""Based on this model design document:
     {design_doc}
 
@@ -411,7 +325,6 @@ Be concise and write production-quality code."""
     Write ONLY executable Python code. NO function definitions. NO explanations."""
 
     def _get_xgboost_training_prompt(self, design_doc: str) -> str:
-        """Generate prompt for XGBoost training code."""
         return f"""Based on this model design document:
     {design_doc}
 
@@ -478,9 +391,6 @@ Be concise and write production-quality code."""
     Write ONLY the executable Python code. NO markdown. NO explanations."""
 
     def predict_hmm(self, ticker: str, returns: np.ndarray) -> Dict[str, Any]:
-        """
-        Generate prediction using trained HMM model.
-        """
         if self.model is None:
             model_path = self._get_model_file_path(ticker, "hmm")
             if not self.load_model(model_path):
@@ -529,14 +439,7 @@ Be concise and write production-quality code."""
             }
 
     def predict_xgboost(self, ticker: str, prices: pd.Series, features: Dict[str, float] = None) -> Dict[str, Any]:
-        """
-        Generate prediction using trained XGBoost model.
 
-        Args:
-            ticker: Stock ticker
-            prices: Price series
-            features: Dict of feature values including embedding factors (news_sentiment, news_magnitude, news_novelty)
-        """
         if self.model is None:
             model_path = self._get_model_file_path(ticker, "xgboost")
             if not self.load_model(model_path):
@@ -548,7 +451,6 @@ Be concise and write production-quality code."""
                 }
 
         try:
-            # Extract model and scaler from saved data
             if isinstance(self.model, dict):
                 model = self.model.get('model')
                 scaler = self.model.get('scaler')
@@ -556,7 +458,6 @@ Be concise and write production-quality code."""
                 model = self.model
                 scaler = None
 
-            # Extract embedding factors from features dict
             embedding_factors = None
             if features is not None:
                 embedding_factors = {
@@ -564,19 +465,14 @@ Be concise and write production-quality code."""
                     "news_magnitude": features.get("news_magnitude", 0.0),
                     "news_novelty": features.get("news_novelty", 0.5)
                 }
-
-            # Compute features from prices + embedding factors
             X = self._compute_basic_features(prices, embedding_factors)
 
-            # Scale if scaler available
             if scaler is not None:
                 X = scaler.transform(X)
 
-            # Get prediction probability
             prob = model.predict_proba(X)[0]
             up_prob = prob[1] if len(prob) > 1 else prob[0]
 
-            # Determine direction
             if up_prob > 0.55:
                 direction = "UP"
             elif up_prob < 0.45:
@@ -584,7 +480,7 @@ Be concise and write production-quality code."""
             else:
                 direction = "NEUTRAL"
 
-            confidence = abs(up_prob - 0.5) * 2  # Scale to 0-1
+            confidence = abs(up_prob - 0.5) * 2
 
             return {
                 "direction_probability": float(up_prob),
@@ -604,9 +500,7 @@ Be concise and write production-quality code."""
 
 
     def _compute_basic_features(self, prices: pd.Series, embedding_factors: Dict[str, float] = None) -> np.ndarray:
-        """Compute technical features + embedding factors (12 features total)."""
 
-        # Original 9 price-based features
         rsi_val = (prices.iloc[-1] - prices.tail(14).mean()) / prices.tail(14).std() if prices.tail(
             14).std() != 0 else 0
         macd_val = prices.tail(26).mean() - prices.tail(12).mean()
@@ -617,8 +511,6 @@ Be concise and write production-quality code."""
         momentum_5 = prices.pct_change(5).iloc[-1] if len(prices) > 5 else 0
         momentum_10 = prices.pct_change(10).iloc[-1] if len(prices) > 10 else 0
         volatility = prices.pct_change().tail(14).std() if len(prices) > 14 else 0
-
-        # 3 embedding-based factors
         news_sentiment = 0.0
         news_magnitude = 0.0
         news_novelty = 0.5
@@ -630,24 +522,13 @@ Be concise and write production-quality code."""
         features = np.array([[
             rsi_val, macd_val, sma_5, sma_10, sma_20, sma_50,
             momentum_5, momentum_10, volatility,
-            news_sentiment, news_magnitude, news_novelty  # NEW
+            news_sentiment, news_magnitude, news_novelty
         ]])
 
         features = np.nan_to_num(features, nan=0.0)
         return features
-
-    # ==================== Tool Implementations ====================
-
     def read_document(self, path: str) -> str:
-        """
-        Read model design document.
 
-        Args:
-            path: Path to document (YAML, MD, or TXT)
-
-        Returns:
-            Document contents as string
-        """
         try:
             if not os.path.exists(path):
                 logger.error(f"Document not found: {path}")
@@ -664,26 +545,10 @@ Be concise and write production-quality code."""
             return ""
 
     def execute_python(self, code: str, variables: Dict[str, Any] = None) -> Dict[str, Any]:
-        """
-        Execute Python code with provided variables.
-
-        Args:
-            code: Python code to execute
-            variables: Dict of variables to inject into execution namespace
-
-        Returns:
-            Dict with success, output, error, namespace
-        """
-        import io
-        import sys
-        from contextlib import redirect_stdout, redirect_stderr
 
         try:
-            # Capture stdout and stderr
             stdout_capture = io.StringIO()
             stderr_capture = io.StringIO()
-
-            # Create execution namespace with common imports
             exec_namespace = {
                 "pd": pd,
                 "np": np,
@@ -692,14 +557,12 @@ Be concise and write production-quality code."""
                 "__builtins__": __builtins__,
             }
 
-            # Add hmmlearn
             try:
                 from hmmlearn import hmm
                 exec_namespace["hmm"] = hmm
             except ImportError:
                 pass
 
-            # Add xgboost and sklearn
             try:
                 import xgboost as xgb
                 exec_namespace["xgb"] = xgb
@@ -714,11 +577,9 @@ Be concise and write production-quality code."""
             except ImportError:
                 pass
 
-            # Inject provided variables
             if variables:
                 exec_namespace.update(variables)
 
-            # Execute code
             with redirect_stdout(stdout_capture), redirect_stderr(stderr_capture):
                 exec(code, exec_namespace)
 
@@ -738,9 +599,6 @@ Be concise and write production-quality code."""
             }
 
     def load_model(self, path: str) -> Any:
-        """
-        Load trained model from disk.
-        """
         try:
             if not os.path.exists(path):
                 logger.warning(f"Model file not found: {path}")
@@ -748,13 +606,10 @@ Be concise and write production-quality code."""
 
             model_data = joblib.load(path)
 
-            # Handle different save formats
             if isinstance(model_data, dict) and "model" in model_data:
-                # Dict format: {'model': model, 'scaler': scaler, ...}
                 self.model = model_data
                 logger.info(f"Loaded model (dict format) from {path}")
             elif isinstance(model_data, tuple) and len(model_data) == 2:
-                # Tuple format from LLM-generated code: (model, scaler)
                 self.model = {
                     'model': model_data[0],
                     'scaler': model_data[1],
@@ -762,7 +617,6 @@ Be concise and write production-quality code."""
                 }
                 logger.info(f"Loaded model (tuple format) from {path}")
             else:
-                # HMM or other format - store directly
                 self.model = model_data
                 logger.info(f"Loaded model from {path}")
 
@@ -775,25 +629,13 @@ Be concise and write production-quality code."""
 
 
     def _extract_code(self, text: str) -> str:
-        """
-        Extract Python code from LLM response.
 
-        Handles responses with or without markdown code blocks.
-
-        Args:
-            text: LLM response text
-
-        Returns:
-            Extracted Python code
-        """
-        # Try to extract code from markdown blocks
         code_block_pattern = r'```(?:python)?\n(.*?)\n```'
         matches = re.findall(code_block_pattern, text, re.DOTALL)
 
         if matches:
-            # Return first code block
+
             return matches[0].strip()
 
-        # No code blocks found, assume entire text is code
         return text.strip()
 

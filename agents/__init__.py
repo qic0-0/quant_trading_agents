@@ -1,7 +1,3 @@
-"""
-Agents package for the Quant Trading Agent System.
-"""
-
 from .base_agent import BaseAgent, AgentOutput
 from .data_agent import DataAgent
 from .feature_agent import FeatureEngineeringAgent

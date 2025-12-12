@@ -1,14 +1,3 @@
-"""
-Experiment 5: Market-Sense Agent Evaluation
-=============================================
-
-Collects responses from Market-Sense Agent for 20 economic/market questions.
-Results are saved for later evaluation.
-
-Usage:
-    python run_experiment5.py --output results/experiment5_results
-"""
-
 import argparse
 import json
 import os
@@ -16,20 +5,14 @@ import logging
 from datetime import datetime
 from typing import Dict, List, Any
 from llm.llm_client import LLMClient
-
-# Import Market-Sense Agent
 from agents.market_sense_agent import MarketSenseAgent
 from config.config import config
-
-# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-
-# ============== QUESTIONS ==============
 
 QUESTIONS = {
     "A": {
@@ -135,54 +118,33 @@ QUESTIONS = {
 }
 
 
-# ============== EXPERIMENT RUNNER ==============
 
 class Experiment5Runner:
-    """Collects Market-Sense Agent responses for evaluation."""
     
     def __init__(self, output_dir: str = "results/experiment5"):
         self.output_dir = output_dir
         self.results = []
         self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        
-        # Create output directory
         os.makedirs(output_dir, exist_ok=True)
-
-        # Initialize LLM client and Market-Sense Agent
         logger.info("Initializing Market-Sense Agent...")
         self.llm_client = LLMClient(config.llm)
         self.agent = MarketSenseAgent(self.llm_client, config)
-        
         logger.info(f"Results will be saved to: {output_dir}")
     
     def query_agent(self, question: str, question_id: str) -> Dict[str, Any]:
-        """
-        Query the Market-Sense Agent with a question.
-        
-        Args:
-            question: The question to ask
-            question_id: Question identifier (e.g., "A1")
-        
-        Returns:
-            Dict with question, response, and metadata
-        """
+
         logger.info(f"  Querying: {question_id}")
         
         try:
-            # Create context for the agent
-            # We use a generic context since these are general knowledge questions
             context = {
-                "ticker": "GENERAL",  # Not stock-specific
+                "ticker": "GENERAL",
                 "query": question,
-                "mode": "analysis",  # Request analysis mode
+                "mode": "analysis",
                 "include_news": True,
                 "include_knowledge": True
             }
-            
-            # Call the agent
+
             response = self.agent.run(context)
-            
-            # Extract the response content
             if isinstance(response, dict):
                 answer = response.get("analysis", response.get("response", str(response)))
                 raw_response = response
@@ -198,15 +160,14 @@ class Experiment5Runner:
                 "success": True,
                 "timestamp": datetime.now().isoformat()
             }
-            
-            # Log first 100 chars of response
+
             preview = answer[:100] + "..." if len(answer) > 100 else answer
-            logger.info(f"    ✓ Response: {preview}")
+            logger.info(f"Response: {preview}")
             
             return result
             
         except Exception as e:
-            logger.error(f"    ✗ Error: {str(e)}")
+            logger.error(f"Error: {str(e)}")
             return {
                 "question_id": question_id,
                 "question": question,
@@ -217,10 +178,7 @@ class Experiment5Runner:
             }
     
     def save_incremental(self, result: Dict[str, Any]):
-        """Save result immediately after each query."""
         json_path = os.path.join(self.output_dir, f"experiment5_responses_{self.timestamp}.json")
-        
-        # Load existing results
         existing = []
         if os.path.exists(json_path):
             try:
@@ -228,24 +186,18 @@ class Experiment5Runner:
                     existing = json.load(f)
             except:
                 existing = []
-        
-        # Append and save
+
         existing.append(result)
         with open(json_path, 'w') as f:
             json.dump(existing, f, indent=2, default=str)
         
-        logger.info(f"    💾 Saved ({len(existing)} responses)")
+        logger.info(f"Saved ({len(existing)} responses)")
     
     def run_all(self):
-        """Run all questions through the Market-Sense Agent."""
-        # Count total questions
         total_questions = sum(len(cat["questions"]) for cat in QUESTIONS.values())
-        
-        logger.info("=" * 70)
+
         logger.info("EXPERIMENT 5: Market-Sense Agent Evaluation")
-        logger.info("=" * 70)
         logger.info(f"Total Questions: {total_questions}")
-        logger.info("=" * 70)
         
         question_count = 0
         
@@ -253,7 +205,7 @@ class Experiment5Runner:
             category_name = category["name"]
             questions = category["questions"]
             
-            logger.info(f"\n--- Category {category_key}: {category_name} ---")
+            logger.info(f"\nCategory {category_key}: {category_name}")
             
             for q in questions:
                 question_count += 1
@@ -268,55 +220,40 @@ class Experiment5Runner:
                 
                 self.results.append(result)
                 self.save_incremental(result)
-        
-        logger.info("\n" + "=" * 70)
+
         logger.info("ALL QUESTIONS COMPLETE")
-        logger.info("=" * 70)
-        
-        # Save final outputs
+
         self.save_final()
     
     def save_final(self):
-        """Save final results in multiple formats."""
-        # Save JSON (already done incrementally, but update final)
         json_path = os.path.join(self.output_dir, f"experiment5_responses_{self.timestamp}.json")
         with open(json_path, 'w') as f:
             json.dump(self.results, f, indent=2, default=str)
         logger.info(f"JSON saved: {json_path}")
-        
-        # Save Markdown for easy reading
+
         md_path = os.path.join(self.output_dir, f"experiment5_responses_{self.timestamp}.md")
         with open(md_path, 'w') as f:
             f.write(self._generate_markdown())
         logger.info(f"Markdown saved: {md_path}")
-        
-        # Save evaluation template
+
         template_path = os.path.join(self.output_dir, f"experiment5_evaluation_template_{self.timestamp}.md")
         with open(template_path, 'w') as f:
             f.write(self._generate_evaluation_template())
         logger.info(f"Evaluation template saved: {template_path}")
     
     def _generate_markdown(self) -> str:
-        """Generate markdown with all Q&A pairs."""
         lines = []
-        lines.append("# Experiment 5: Market-Sense Agent Responses")
-        lines.append("")
+        lines.append("Experiment 5: Market-Sense Agent Responses")
         lines.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        lines.append("")
-        lines.append("---")
-        lines.append("")
         
         current_category = None
         
         for r in self.results:
-            # Category header
             if r.get("category") != current_category:
                 current_category = r.get("category")
                 category_name = r.get("category_name", current_category)
                 lines.append(f"## Category {current_category}: {category_name}")
                 lines.append("")
-            
-            # Question and Answer
             lines.append(f"### {r['question_id']}: {r['question']}")
             lines.append("")
             
@@ -328,14 +265,12 @@ class Experiment5Runner:
             else:
                 lines.append(f"**Error:** {r.get('error', 'Unknown error')}")
                 lines.append("")
-            
             lines.append("---")
             lines.append("")
         
         return "\n".join(lines)
     
     def _generate_evaluation_template(self) -> str:
-        """Generate evaluation template for manual scoring."""
         lines = []
         lines.append("# Experiment 5: Evaluation Form")
         lines.append("")
@@ -376,9 +311,6 @@ class Experiment5Runner:
         
         return "\n".join(lines)
 
-
-# ============== MAIN ==============
-
 def main():
     parser = argparse.ArgumentParser(description="Run Experiment 5: Market-Sense Agent Evaluation")
     
@@ -390,10 +322,8 @@ def main():
     )
     
     args = parser.parse_args()
-    
     runner = Experiment5Runner(output_dir=args.output)
     runner.run_all()
-
 
 if __name__ == "__main__":
     main()

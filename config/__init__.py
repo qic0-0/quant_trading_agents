@@ -1,7 +1,3 @@
-"""
-Configuration package for the Quant Trading Agent System.
-"""
-
 from .config import (
     config,
     SystemConfig,

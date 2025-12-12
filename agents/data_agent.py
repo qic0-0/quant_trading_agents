@@ -1,34 +1,15 @@
-"""
-Data Agent - Agent 1 in the Quant Trading System.
-
-Responsibilities:
-- Collect price data (via yfinance)
-- Collect news data (via Finnhub/Alpha Vantage)
-- Collect fundamental data (via yfinance)
-- Collect economic indicators (via FRED)
-"""
-
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 import pandas as pd
 import yfinance as yf
 import requests
 import logging
-
+from fredapi import Fred
 logger = logging.getLogger(__name__)
-
 from .base_agent import BaseAgent, AgentOutput
 
 
 class DataAgent(BaseAgent):
-    """
-    Agent responsible for collecting raw data from various sources.
-    
-    Data Sources:
-    - Yahoo Finance: Price data, fundamentals
-    - Finnhub/Alpha Vantage: News articles
-    - FRED: Economic indicators
-    """
     
     def __init__(self, llm_client, config):
         super().__init__("DataAgent", llm_client, config)
@@ -52,7 +33,6 @@ You have access to the following tools:
 Always ensure data quality and report any issues with data collection."""
 
     def _register_tools(self):
-        """Register data collection tools."""
         
         self.register_tool(
             name="fetch_price_data",
@@ -117,22 +97,7 @@ Always ensure data quality and report any issues with data collection."""
         )
 
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
-        """
-        Run data collection for specified tickers and date range.
 
-        Args:
-            input_data: {
-                "tickers": List[str],
-                "start_date": str,
-                "end_date": str,
-                "collect_news": bool,
-                "collect_fundamentals": bool,
-                "economic_indicators": List[str]
-            }
-
-        Returns:
-            AgentOutput with collected data and data dictionary
-        """
         tickers = input_data.get("tickers", [])
         start_date = input_data.get("start_date")
         end_date = input_data.get("end_date")
@@ -148,33 +113,28 @@ Always ensure data quality and report any issues with data collection."""
             "economic_indicators": {}
         }
 
-        # Collect price data for each ticker
         for ticker in tickers:
             logs.append(f"Fetching price data for {ticker}...")
             collected_data["price_data"][ticker] = self.fetch_price_data(
                 ticker, start_date, end_date
             )
 
-            # Collect fundamentals if requested
             if collect_fundamentals:
                 logs.append(f"Fetching fundamentals for {ticker}...")
                 collected_data["fundamentals"][ticker] = self.fetch_fundamentals(ticker)
 
-            # Collect news if requested
             if collect_news:
                 logs.append(f"Fetching news for {ticker}...")
                 collected_data["news"][ticker] = self.fetch_news(
                     ticker, start_date, end_date
                 )
 
-        # Collect economic indicators if requested
         if economic_indicators:
             logs.append(f"Fetching economic indicators: {economic_indicators}...")
             collected_data["economic_indicators"] = self.fetch_economic_indicators(
                 economic_indicators, start_date, end_date
             )
 
-        # Generate data dictionary
         data_dictionary = self.generate_data_dictionary(collected_data)
 
         return AgentOutput(
@@ -187,24 +147,8 @@ Always ensure data quality and report any issues with data collection."""
             logs=logs
         )
 
-    # ==================== Tool Implementations ====================
-    def fetch_price_data(
-            self,
-            ticker: str,
-            start_date: str,
-            end_date: str
-    ) -> pd.DataFrame:
-        """
-        Fetch OHLCV price data using yfinance.
 
-        Args:
-            ticker: Stock ticker symbol
-            start_date: Start date (YYYY-MM-DD)
-            end_date: End date (YYYY-MM-DD)
-
-        Returns:
-            DataFrame with OHLCV data
-        """
+    def fetch_price_data(self, ticker: str, start_date: str, end_date: str) -> pd.DataFrame:
         try:
             stock = yf.Ticker(ticker)
             df = stock.history(start=start_date, end=end_date)
@@ -213,7 +157,6 @@ Always ensure data quality and report any issues with data collection."""
                 logger.warning(f"No price data found for {ticker}")
                 return pd.DataFrame()
 
-            # Keep standard columns
             df = df[['Open', 'High', 'Low', 'Close', 'Volume']]
             logger.info(f"Fetched {len(df)} days of price data for {ticker}")
             return df
@@ -223,15 +166,7 @@ Always ensure data quality and report any issues with data collection."""
             return pd.DataFrame()
 
     def fetch_fundamentals(self, ticker: str) -> Dict[str, Any]:
-        """
-        Fetch fundamental data using yfinance.
 
-        Args:
-            ticker: Stock ticker symbol
-
-        Returns:
-            Dict with P/E, P/B, market cap, etc.
-        """
         try:
             stock = yf.Ticker(ticker)
             info = stock.info
@@ -258,23 +193,8 @@ Always ensure data quality and report any issues with data collection."""
             logger.error(f"Error fetching fundamentals for {ticker}: {e}")
             return {"ticker": ticker, "error": str(e)}
 
-    def fetch_news(
-            self,
-            ticker: str,
-            start_date: Optional[str] = None,
-            end_date: Optional[str] = None
-    ) -> List[Dict[str, Any]]:
-        """
-        Fetch news articles using Finnhub.
+    def fetch_news(self, ticker: str, start_date: Optional[str] = None, end_date: Optional[str] = None) -> List[Dict[str, Any]]:
 
-        Args:
-            ticker: Stock ticker symbol
-            start_date: Optional start date (YYYY-MM-DD)
-            end_date: Optional end date (YYYY-MM-DD)
-
-        Returns:
-            List of news articles with headline, summary, date, source
-        """
         api_key = self.config.data_sources.finnhub_api_key
 
         if not api_key:
@@ -282,10 +202,8 @@ Always ensure data quality and report any issues with data collection."""
             return []
 
         try:
-            # Finnhub API endpoint
             url = "https://finnhub.io/api/v1/company-news"
 
-            # Default to last 30 days if no dates provided
             if not end_date:
                 end_date = datetime.now().strftime("%Y-%m-%d")
             if not start_date:
@@ -303,7 +221,6 @@ Always ensure data quality and report any issues with data collection."""
 
             news_data = response.json()
 
-            # Parse and format news articles
             articles = []
             for item in news_data:
                 articles.append({
@@ -322,23 +239,9 @@ Always ensure data quality and report any issues with data collection."""
             logger.error(f"Error fetching news for {ticker}: {e}")
             return []
 
-    def fetch_economic_indicators(
-            self,
-            indicators: List[str],
-            start_date: Optional[str] = None,
-            end_date: Optional[str] = None
-    ) -> Dict[str, pd.Series]:
-        """
-        Fetch economic indicators from FRED.
-
-        Args:
-            indicators: List of FRED codes (e.g., "FEDFUNDS", "CPIAUCSL")
-            start_date: Optional start date
-            end_date: Optional end date
-
-        Returns:
-            Dict mapping indicator code to time series
-        """
+    def fetch_economic_indicators(self, indicators: List[str],
+                                  start_date: Optional[str] = None,
+                                  end_date: Optional[str] = None) -> Dict[str, pd.Series]:
         api_key = self.config.data_sources.fred_api_key
 
         if not api_key:
@@ -346,7 +249,6 @@ Always ensure data quality and report any issues with data collection."""
             return {}
 
         try:
-            from fredapi import Fred
             fred = Fred(api_key=api_key)
 
             result = {}
@@ -369,21 +271,11 @@ Always ensure data quality and report any issues with data collection."""
             return {}
 
     def generate_data_dictionary(self, collected_data: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        Generate a data dictionary describing all collected data.
-
-        Args:
-            collected_data: The collected data from all sources
-
-        Returns:
-            Data dictionary describing available data
-        """
         dictionary = {
             "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "datasets": {}
         }
 
-        # Document price data
         if collected_data.get("price_data"):
             tickers = list(collected_data["price_data"].keys())
             sample_df = next(
@@ -401,7 +293,6 @@ Always ensure data quality and report any issues with data collection."""
                 }
             }
 
-        # Document fundamentals
         if collected_data.get("fundamentals"):
             sample = next(
                 (f for f in collected_data["fundamentals"].values() if "error" not in f),
@@ -414,7 +305,6 @@ Always ensure data quality and report any issues with data collection."""
                 "fields": [k for k in sample.keys() if k != "ticker"]
             }
 
-        # Document news
         if collected_data.get("news"):
             total_articles = sum(len(articles) for articles in collected_data["news"].values())
             dictionary["datasets"]["news"] = {
@@ -425,7 +315,6 @@ Always ensure data quality and report any issues with data collection."""
                 "fields": ["headline", "summary", "datetime", "source", "url"]
             }
 
-        # Document economic indicators
         if collected_data.get("economic_indicators"):
             dictionary["datasets"]["economic_indicators"] = {
                 "description": "Macroeconomic indicators",

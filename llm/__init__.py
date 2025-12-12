@@ -1,7 +1,3 @@
-"""
-LLM package for the Quant Trading Agent System.
-"""
-
 from .llm_client import (
     LLMClient,
     Message,

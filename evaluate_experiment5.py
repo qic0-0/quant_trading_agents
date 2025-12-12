@@ -1,15 +1,3 @@
-"""
-Experiment 5: LLM-Based Evaluation of Market-Sense Agent Responses
-===================================================================
-
-Reads experiment 5 results and uses LLM to evaluate each response
-according to the 5 evaluation criteria.
-
-Usage:
-    python evaluate_experiment5.py --results results/experiment5_results
-    python evaluate_experiment5.py --results results/experiment5_results --output results/experiment5_evaluation
-"""
-
 import argparse
 import json
 import os
@@ -18,19 +6,14 @@ from typing import Dict, List, Any
 import pandas as pd
 from datetime import datetime
 import logging
-
-# Use existing LLM client
 from llm.llm_client import LLMClient, Message
 from config.config import config
-
-# Set up logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
 logger = logging.getLogger(__name__)
 
-# ============== EVALUATION PROMPT ==============
 
 EVALUATION_SYSTEM_PROMPT = """You are an expert evaluator assessing the quality of AI-generated responses about financial markets and economics.
 
@@ -87,43 +70,35 @@ EVALUATION_USER_TEMPLATE = """## Question
 Please evaluate this response according to the 5 criteria and provide scores in JSON format."""
 
 
-# ============== EVALUATOR CLASS ==============
-
 class Experiment5Evaluator:
-    """Evaluates Market-Sense Agent responses using LLM."""
     
     def __init__(self, results_dir: str, output_dir: str = None):
         self.results_dir = results_dir
         self.output_dir = output_dir or results_dir
         self.timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         self.evaluations = []
-        
-        # Initialize LLM client using existing config
         logger.info("Initializing LLM client...")
         self.llm_client = LLMClient(config.llm)
-        
-        # Create output directory
         os.makedirs(self.output_dir, exist_ok=True)
     
     def load_results(self) -> List[Dict]:
-        """Load experiment 5 results from JSON."""
+
         json_files = glob(os.path.join(self.results_dir, "experiment5_responses_*.json"))
         
         if not json_files:
             raise FileNotFoundError(f"No experiment5 results found in {self.results_dir}")
         
         latest_file = max(json_files, key=os.path.getctime)
-        print(f"📂 Loading: {latest_file}")
+        print(f"Loading: {latest_file}")
         
         with open(latest_file, 'r') as f:
             results = json.load(f)
         
-        print(f"   Found {len(results)} Q&A pairs")
+        print(f"Found {len(results)} Q&A pairs")
         return results
     
     def evaluate_single(self, question: str, answer: str, question_id: str) -> Dict[str, Any]:
-        """Evaluate a single Q&A pair using LLM."""
-        print(f"   Evaluating {question_id}...")
+        print(f"Evaluating {question_id}...")
         
         if not answer or answer.strip() == "":
             return {
@@ -139,7 +114,6 @@ class Experiment5Evaluator:
             }
         
         try:
-            # Build messages for LLM
             messages = [
                 Message(role="system", content=EVALUATION_SYSTEM_PROMPT),
                 Message(role="user", content=EVALUATION_USER_TEMPLATE.format(
@@ -147,29 +121,21 @@ class Experiment5Evaluator:
                     answer=answer
                 ))
             ]
-            
-            # Call LLM using existing client
+
             response = self.llm_client.chat(messages, temperature=0.3)
-            
-            # Parse response
             response_text = response.content.strip()
-            
-            # Try to parse JSON
-            # Handle potential markdown code blocks
+
             if "```json" in response_text:
                 response_text = response_text.split("```json")[1].split("```")[0].strip()
             elif "```" in response_text:
                 response_text = response_text.split("```")[1].split("```")[0].strip()
-            
-            # Find JSON in response
+
             start_idx = response_text.find('{')
             end_idx = response_text.rfind('}') + 1
             if start_idx != -1 and end_idx > start_idx:
                 response_text = response_text[start_idx:end_idx]
             
             scores = json.loads(response_text)
-            
-            # Validate and extract scores
             evaluation = {
                 "question_id": question_id,
                 "factual_accuracy": int(scores.get("factual_accuracy", 0)),
@@ -181,8 +147,7 @@ class Experiment5Evaluator:
                 "notes": scores.get("notes", ""),
                 "success": True
             }
-            
-            # Recalculate total to ensure accuracy
+
             evaluation["total"] = (
                 evaluation["factual_accuracy"] +
                 evaluation["logical_reasoning"] +
@@ -191,11 +156,11 @@ class Experiment5Evaluator:
                 evaluation["trading_applicability"]
             )
             
-            print(f"      ✓ Score: {evaluation['total']}/25")
+            print(f"Score: {evaluation['total']}/25")
             return evaluation
             
         except json.JSONDecodeError as e:
-            print(f"      ✗ JSON parse error: {e}")
+            print(f"JSON parse error: {e}")
             return {
                 "question_id": question_id,
                 "factual_accuracy": 0,
@@ -208,7 +173,7 @@ class Experiment5Evaluator:
                 "success": False
             }
         except Exception as e:
-            print(f"      ✗ Error: {e}")
+            print(f"Error: {e}")
             return {
                 "question_id": question_id,
                 "factual_accuracy": 0,
@@ -222,7 +187,6 @@ class Experiment5Evaluator:
             }
     
     def save_incremental(self, evaluation: Dict[str, Any]):
-        """Save evaluation immediately."""
         json_path = os.path.join(self.output_dir, f"experiment5_evaluation_{self.timestamp}.json")
         
         existing = []
@@ -237,17 +201,13 @@ class Experiment5Evaluator:
         with open(json_path, 'w') as f:
             json.dump(existing, f, indent=2)
         
-        print(f"      💾 Saved ({len(existing)} evaluations)")
+        print(f"Saved ({len(existing)} evaluations)")
     
     def run(self):
-        """Run evaluation on all Q&A pairs."""
         results = self.load_results()
-        
-        print("\n" + "=" * 70)
+
         print("EXPERIMENT 5: LLM-Based Evaluation")
-        print("=" * 70)
         print(f"Evaluating {len(results)} responses...")
-        print("=" * 70)
         
         for idx, r in enumerate(results):
             question_id = r.get("question_id", f"Q{idx+1}")
@@ -263,36 +223,29 @@ class Experiment5Evaluator:
             
             self.evaluations.append(evaluation)
             self.save_incremental(evaluation)
-        
-        print("\n" + "=" * 70)
+
         print("EVALUATION COMPLETE")
-        print("=" * 70)
         
         self.save_final()
         self.print_summary()
     
     def save_final(self):
-        """Save final results in multiple formats."""
-        # JSON (already saved incrementally)
         json_path = os.path.join(self.output_dir, f"experiment5_evaluation_{self.timestamp}.json")
         with open(json_path, 'w') as f:
             json.dump(self.evaluations, f, indent=2)
-        print(f"📄 JSON saved: {json_path}")
-        
-        # CSV
+        print(f"JSON saved: {json_path}")
+
         csv_path = os.path.join(self.output_dir, f"experiment5_evaluation_{self.timestamp}.csv")
         df = pd.DataFrame(self.evaluations)
         df.to_csv(csv_path, index=False)
-        print(f"📄 CSV saved: {csv_path}")
-        
-        # Markdown report
+        print(f"CSV saved: {csv_path}")
+
         md_path = os.path.join(self.output_dir, f"experiment5_evaluation_{self.timestamp}.md")
         with open(md_path, 'w') as f:
             f.write(self._generate_markdown_report())
-        print(f"📄 Markdown saved: {md_path}")
+        print(f"Markdown saved: {md_path}")
     
     def _generate_markdown_report(self) -> str:
-        """Generate comprehensive markdown evaluation report."""
         lines = []
         lines.append("# Experiment 5: Market-Sense Agent Evaluation Results")
         lines.append("")
@@ -300,8 +253,6 @@ class Experiment5Evaluator:
         lines.append("")
         lines.append("---")
         lines.append("")
-        
-        # Scoring criteria reference
         lines.append("## Scoring Criteria")
         lines.append("")
         lines.append("| Criterion | Score (1-5) | Description |")
@@ -314,8 +265,6 @@ class Experiment5Evaluator:
         lines.append("")
         lines.append("---")
         lines.append("")
-        
-        # Main evaluation table
         lines.append("## Evaluation Results")
         lines.append("")
         lines.append("| Question ID | Factual | Logical | Relevance | Completeness | Applicability | Total | Notes |")
@@ -332,8 +281,6 @@ class Experiment5Evaluator:
         lines.append("")
         lines.append("---")
         lines.append("")
-        
-        # Category summaries
         lines.append("## Summary by Category")
         lines.append("")
         
@@ -356,23 +303,17 @@ class Experiment5Evaluator:
             min_score = min(scores) if scores else 0
             max_score = max(scores) if scores else 0
             lines.append(f"| {cat_key}: {cat['name']} | **{avg:.1f}/25** | {min_score} | {max_score} | {len(scores)} |")
-        
-        # Overall
+
         all_scores = [e["total"] for e in self.evaluations]
         overall_avg = sum(all_scores) / len(all_scores) if all_scores else 0
         lines.append(f"| **OVERALL** | **{overall_avg:.1f}/25** | {min(all_scores) if all_scores else 0} | {max(all_scores) if all_scores else 0} | {len(all_scores)} |")
-        
         lines.append("")
         lines.append("---")
         lines.append("")
-        
-        # Criteria breakdown
         lines.append("## Average Scores by Criterion")
         lines.append("")
-        
         criteria = ["factual_accuracy", "logical_reasoning", "relevance", "completeness", "trading_applicability"]
         criteria_names = ["Factual Accuracy", "Logical Reasoning", "Relevance", "Completeness", "Trading Applicability"]
-        
         lines.append("| Criterion | Average Score |")
         lines.append("|-----------|---------------|")
         
@@ -384,8 +325,6 @@ class Experiment5Evaluator:
         lines.append("")
         lines.append("---")
         lines.append("")
-        
-        # Detailed notes
         lines.append("## Detailed Notes")
         lines.append("")
         
@@ -400,10 +339,7 @@ class Experiment5Evaluator:
         return "\n".join(lines)
     
     def print_summary(self):
-        """Print summary to console."""
-        print("\n" + "=" * 70)
         print("SUMMARY")
-        print("=" * 70)
         
         all_scores = [e["total"] for e in self.evaluations if e.get("success")]
         
@@ -416,15 +352,11 @@ class Experiment5Evaluator:
             print(f"Max Score: {max(all_scores)}/25")
         else:
             print("No successful evaluations")
-        
-        print("=" * 70)
 
 
-# ============== MAIN ==============
 
 def main():
     parser = argparse.ArgumentParser(description="Evaluate Experiment 5 responses using LLM")
-    
     parser.add_argument(
         "--results",
         type=str,

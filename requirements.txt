@@ -42,3 +42,5 @@ globus-sdk>=3.0.0         # Globus authentication for Argonne
 # -----------------------------------------------------------------------------
 python-dateutil>=2.8.0    # Date parsing
 PyYAML>=6.0               # YAML config files
+
+sentence-transformers>=2.2.0

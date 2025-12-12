@@ -1,60 +1,28 @@
-"""
-Market-Sense Agent - Agent 4 in the Quant Trading System.
-
-Responsibilities:
-- LLM-based reasoning about market conditions
-- News interpretation in market context
-- Apply financial/economic knowledge (RAG)
-- Compare to historical patterns
-- Assess risks and opportunities
-
-Key Design:
-- Uses RAG + Prompt Engineering (NOT fine-tuning)
-- Knowledge base contains financial concepts, historical events
-- Receives market state from Data Agent
-- Outputs qualitative market insight
-"""
-
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass
 from datetime import datetime
 import numpy as np
 import logging
-
 logger = logging.getLogger(__name__)
-
 from .base_agent import BaseAgent, AgentOutput
 from llm.llm_client import Message
+from sentence_transformers import SentenceTransformer
+import json
 
 @dataclass
 class MarketInsight:
-    """Output from Market-Sense Agent."""
-    outlook: str  # "BULLISH", "BEARISH", "NEUTRAL"
-    confidence: float  # 0.0 to 1.0
-    reasoning: str  # Explanation
-    risk_flags: List[str]  # Any risks identified
-    historical_comparison: Optional[str]  # Similar past situations
+    outlook: str
+    confidence: float
+    reasoning: str
+    risk_flags: List[str]
+    historical_comparison: Optional[str]
 
 
 class MarketSenseAgent(BaseAgent):
-    """
-    Agent responsible for qualitative market analysis.
-    
-    Uses RAG to retrieve relevant:
-    - Financial/economic concepts
-    - Historical market events
-    - Investment principles
-    
-    Then applies LLM reasoning to:
-    - Interpret current news
-    - Assess market conditions
-    - Identify risks
-    - Compare to historical patterns
-    """
     
     def __init__(self, llm_client, config):
         super().__init__("MarketSenseAgent", llm_client, config)
-        self.knowledge_store = None  # Vector store for financial knowledge
+        self.knowledge_store = None
         
     @property
     def system_prompt(self) -> str:
@@ -89,7 +57,6 @@ When analyzing:
 Be balanced and objective. Acknowledge uncertainty when appropriate."""
 
     def _register_tools(self):
-        """Register market-sense tools."""
         
         self.register_tool(
             name="retrieve_knowledge",
@@ -119,20 +86,6 @@ Be balanced and objective. Acknowledge uncertainty when appropriate."""
             }
         )
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
-        """
-        Analyze market conditions and provide insight.
-
-        Args:
-            input_data: {
-                "market_state": Dict,
-                "news": List[str],
-                "quant_signal": Optional[Dict],
-                "ticker": str
-            }
-
-        Returns:
-            AgentOutput with MarketInsight
-        """
         market_state = input_data.get("market_state", {})
         news = input_data.get("news", [])
         quant_signal = input_data.get("quant_signal", {})
@@ -141,26 +94,20 @@ Be balanced and objective. Acknowledge uncertainty when appropriate."""
         logs = []
 
         try:
-            # Format market state
             market_state_str = self.format_market_state(market_state)
             logs.append("Formatted market state")
-
-            # Build news summary
             news_str = "\n".join([f"- {n}" for n in news[:5]]) if news else "No recent news"
 
-            # Retrieve relevant knowledge
             knowledge_query = f"{ticker} market conditions {news[0] if news else ''}"
             knowledge = self.retrieve_knowledge(knowledge_query, top_k=3)
             knowledge_str = "\n".join([f"- {k['text']}" for k in knowledge]) if knowledge else "No relevant knowledge found"
             logs.append(f"Retrieved {len(knowledge)} knowledge chunks")
 
-            # Retrieve historical comparisons
             historical_query = f"Market situation: {market_state_str[:200]} {news[0] if news else ''}"
             historical = self.retrieve_historical_events(historical_query, top_k=2)
             historical_str = "\n".join([f"- {h['event']} ({h['date']}): {h['lessons']}" for h in historical]) if historical else "No similar historical events found"
             logs.append(f"Retrieved {len(historical)} historical events")
 
-            # Format quant signal if available
             quant_str = ""
             if quant_signal:
                 quant_str = f"""
@@ -169,8 +116,6 @@ Quantitative Model Signal:
 - Regime: {quant_signal.get('regime', 'N/A')}
 - Confidence: {quant_signal.get('confidence', 'N/A')}
 """
-
-            # Build prompt for LLM
             analysis_prompt = f"""Analyze the current market situation for {ticker}.
 
 {market_state_str}
@@ -201,8 +146,6 @@ Respond in the following JSON format:
     "risk_flags": ["risk1", "risk2"],
     "historical_comparison": "comparison to past events"
 }}"""
-
-            # Call LLM
             messages = [
                 Message(role="system", content=self.system_prompt),
                 Message(role="user", content=analysis_prompt)
@@ -211,12 +154,8 @@ Respond in the following JSON format:
             response = self.llm_client.chat(messages, temperature=0.3)
             logs.append("Received LLM response")
 
-            # Parse LLM response
             try:
-                import json
-                # Try to extract JSON from response
                 content = response.content
-                # Find JSON in response
                 start_idx = content.find('{')
                 end_idx = content.rfind('}') + 1
                 if start_idx != -1 and end_idx > start_idx:
@@ -233,70 +172,36 @@ Respond in the following JSON format:
                     historical_comparison=result.get("historical_comparison", "")
                 )
 
-
             except (json.JSONDecodeError, ValueError) as e:
-
                 logger.warning(f"Failed to parse LLM response as JSON: {e}")
-
-                # Fallback: create insight from raw response
-
                 insight = MarketInsight(
-
                     outlook="NEUTRAL",
-
                     confidence=0.5,
-
                     reasoning=response.content,
-
                     risk_flags=[],
+                    historical_comparison="")
 
-                    historical_comparison=""
-
-                )
-
-                # FALLBACK: If LLM returns NEUTRAL, use technical indicators
 
             if insight.outlook == "NEUTRAL":
-
                 ticker_data = market_state.get("ticker_data", {})
-
                 momentum = ticker_data.get("momentum_1m", 0) or 0
-
-                # Use momentum to determine outlook
-
-                if momentum > 0.03:  # >3% monthly gain
-
+                if momentum > 0.03:
                     insight = MarketInsight(
-
                         outlook="BULLISH",
-
                         confidence=min(0.7, 0.5 + abs(momentum)),
-
                         reasoning=f"Technical momentum positive ({momentum * 100:.1f}% 1M). " + insight.reasoning,
-
                         risk_flags=insight.risk_flags,
-
-                        historical_comparison=insight.historical_comparison
-
-                    )
+                        historical_comparison=insight.historical_comparison)
 
                     logger.info(f"Fallback: NEUTRAL -> BULLISH based on momentum {momentum:.3f}")
 
-                elif momentum < -0.03:  # <-3% monthly loss
-
+                elif momentum < -0.03:
                     insight = MarketInsight(
-
                         outlook="BEARISH",
-
                         confidence=min(0.7, 0.5 + abs(momentum)),
-
                         reasoning=f"Technical momentum negative ({momentum * 100:.1f}% 1M). " + insight.reasoning,
-
                         risk_flags=insight.risk_flags,
-
-                        historical_comparison=insight.historical_comparison
-
-                    )
+                        historical_comparison=insight.historical_comparison)
 
                     logger.info(f"Fallback: NEUTRAL -> BEARISH based on momentum {momentum:.3f}")
 
@@ -326,24 +231,8 @@ Respond in the following JSON format:
                 message=f"Market analysis failed: {str(e)}",
                 logs=logs
             )
-    # ==================== Tool Implementations ====================
 
-    def retrieve_knowledge(
-            self,
-            query: str,
-            top_k: int = 5
-    ) -> List[Dict[str, Any]]:
-        """
-        Retrieve relevant financial/economic knowledge.
-
-        Args:
-            query: Search query
-            top_k: Number of results
-
-        Returns:
-            List of knowledge chunks
-        """
-        # Initialize knowledge store if not exists
+    def retrieve_knowledge(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
         if self.knowledge_store is None:
             self._initialize_knowledge_store()
 
@@ -352,14 +241,11 @@ Respond in the following JSON format:
             return []
 
         try:
-            # Embed query
-            from sentence_transformers import SentenceTransformer
             if not hasattr(self, '_embedding_model'):
                 self._embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
             query_embedding = self._embedding_model.encode(query)
 
-            # Search knowledge store
             similarities = []
             for item in self.knowledge_store:
                 similarity = np.dot(query_embedding, item["embedding"]) / (
@@ -372,11 +258,9 @@ Respond in the following JSON format:
                     "similarity": float(similarity)
                 })
 
-            # Sort and return top_k
             similarities.sort(key=lambda x: x["similarity"], reverse=True)
             results = similarities[:top_k]
 
-            # Remove similarity score from output
             for r in results:
                 del r["similarity"]
 
@@ -387,24 +271,8 @@ Respond in the following JSON format:
             logger.error(f"Error retrieving knowledge: {e}")
             return []
 
+    def retrieve_historical_events(self, query: str, top_k: int = 3) -> List[Dict[str, Any]]:
 
-
-    def retrieve_historical_events(
-            self,
-            query: str,
-            top_k: int = 3
-    ) -> List[Dict[str, Any]]:
-        """
-        Find similar historical market events.
-
-        Args:
-            query: Description of current situation
-            top_k: Number of events to retrieve
-
-        Returns:
-            List of historical events
-        """
-        # Initialize historical events if not exists
         if not hasattr(self, '_historical_events'):
             self._initialize_historical_events()
 
@@ -412,14 +280,11 @@ Respond in the following JSON format:
             return []
 
         try:
-            # Embed query
-            from sentence_transformers import SentenceTransformer
             if not hasattr(self, '_embedding_model'):
                 self._embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
             query_embedding = self._embedding_model.encode(query)
 
-            # Search historical events
             similarities = []
             for event in self._historical_events:
                 similarity = np.dot(query_embedding, event["embedding"]) / (
@@ -433,11 +298,9 @@ Respond in the following JSON format:
                     "similarity": float(similarity)
                 })
 
-            # Sort and return top_k
             similarities.sort(key=lambda x: x["similarity"], reverse=True)
             results = similarities[:top_k]
 
-            # Remove similarity score
             for r in results:
                 del r["similarity"]
 
@@ -450,18 +313,8 @@ Respond in the following JSON format:
 
 
     def format_market_state(self, market_state: Dict) -> str:
-        """
-        Format market state for LLM prompt.
-
-        Args:
-            market_state: Raw market state dict
-
-        Returns:
-            Formatted string for LLM context
-        """
         lines = ["Current Market State:"]
 
-        # Market-wide metrics
         if "sp500" in market_state:
             sp = market_state["sp500"]
             lines.append(f"- S&P 500: {sp.get('price', 'N/A')} ({sp.get('change_pct', 0):+.1f}% today)")
@@ -480,7 +333,6 @@ Respond in the following JSON format:
         if "cpi" in market_state:
             lines.append(f"- CPI: {market_state['cpi']}% YoY")
 
-        # Ticker-specific data
         if "ticker_data" in market_state:
             td = market_state["ticker_data"]
             ticker = td.get("ticker", "Stock")
@@ -498,13 +350,10 @@ Respond in the following JSON format:
         return "\n".join(lines)
 
     def _initialize_knowledge_store(self):
-        """Initialize the financial knowledge store with base knowledge."""
         try:
-            from sentence_transformers import SentenceTransformer
             if not hasattr(self, '_embedding_model'):
                 self._embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
 
-            # Base financial knowledge
             knowledge_items = [
                 {
                     "text": "When the Federal Reserve raises interest rates, it typically slows economic growth and can lead to lower stock valuations, especially for growth stocks.",
@@ -538,7 +387,6 @@ Respond in the following JSON format:
                     "category": "financial_concepts", "source": "earnings"},
             ]
 
-            # Embed and store
             self.knowledge_store = []
             for item in knowledge_items:
                 embedding = self._embedding_model.encode(item["text"])
@@ -559,13 +407,9 @@ Respond in the following JSON format:
             self.knowledge_store = []
 
     def _initialize_historical_events(self):
-        """Initialize historical market events database."""
         try:
-            from sentence_transformers import SentenceTransformer
             if not hasattr(self, '_embedding_model'):
                 self._embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
-
-            # Historical market events
             events = [
                 {
                     "event": "2008 Financial Crisis - Lehman Brothers collapse",
@@ -605,7 +449,6 @@ Respond in the following JSON format:
                 },
             ]
 
-            # Embed events
             self._historical_events = []
             for event in events:
                 text = f"{event['event']} {event['market_impact']} {event['lessons']}"

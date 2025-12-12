@@ -1,41 +1,18 @@
-"""
-Feature Engineering Agent - Agent 2 in the Quant Trading System.
-
-Responsibilities:
-- Compute technical indicators (RSI, MACD, etc.)
-- Compute quantitative factors (momentum, value, volatility)
-- Process news for embedding and retrieval
-- Retrieve similar historical news
-"""
-
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 import pandas as pd
 import numpy as np
 import logging
-
 logger = logging.getLogger(__name__)
-
 from .base_agent import BaseAgent, AgentOutput
+from sentence_transformers import SentenceTransformer
 
 
 class FeatureEngineeringAgent(BaseAgent):
-    """
-    Agent responsible for transforming raw data into features.
-    
-    Outputs:
-    - Numerical feature matrix for Quant Modeling Agent
-    - Retrieved news text for Market-Sense Agent
-    
-    Key Design Decision:
-    - Factors stay as EXACT NUMERICAL VALUES (not embedded)
-    - Embeddings used ONLY for news retrieval
-    - LLM receives raw text, not embeddings
-    """
     
     def __init__(self, llm_client, config):
         super().__init__("FeatureEngineeringAgent", llm_client, config)
-        self.vector_store = None  # Initialize vector store for news embeddings
+        self.vector_store = None
         
     @property
     def system_prompt(self) -> str:
@@ -60,7 +37,6 @@ You have access to the following tools:
 - retrieve_similar_news: Find similar historical news"""
 
     def _register_tools(self):
-        """Register feature engineering tools."""
         
         self.register_tool(
             name="compute_technical_indicators",
@@ -136,17 +112,7 @@ You have access to the following tools:
             }
         )
 
-    # Add this new method (around line 200)
     def compute_embedding_factors(self, news_texts: List[str]) -> Dict[str, float]:
-        """
-        Convert news embeddings to numerical factors for Quant Model.
-
-        Args:
-            news_texts: List of news headlines/summaries
-
-        Returns:
-            Dict of embedding-derived factors
-        """
         if not news_texts:
             return {
                 "news_sentiment": 0.0,
@@ -155,7 +121,6 @@ You have access to the following tools:
             }
 
         try:
-            # Reference embeddings for sentiment
             bullish_ref = self.embed_text("stock price surge strong earnings beat bullish momentum growth")
             bearish_ref = self.embed_text("stock crash decline losses bearish downturn sell-off warning")
 
@@ -165,7 +130,6 @@ You have access to the following tools:
             bullish_ref = np.array(bullish_ref)
             bearish_ref = np.array(bearish_ref)
 
-            # Compute average news embedding
             news_embeddings = []
             for text in news_texts:
                 emb = self.embed_text(text)
@@ -177,27 +141,22 @@ You have access to the following tools:
 
             avg_news_emb = np.mean(news_embeddings, axis=0)
 
-            # Cosine similarity helper
             def cosine_sim(a, b):
                 return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b) + 1e-8)
 
-            # Sentiment: similarity to bullish vs bearish (-1 to +1)
             bull_sim = cosine_sim(avg_news_emb, bullish_ref)
             bear_sim = cosine_sim(avg_news_emb, bearish_ref)
             sentiment_score = float(bull_sim - bear_sim)
-
-            # Magnitude: how "financial" the news is (0 to 1)
             magnitude = float((bull_sim + bear_sim) / 2)
 
-            # Novelty: how different from stored historical news (0 to 1)
-            novelty = 0.5  # Default
+            novelty = 0.5
             if self.vector_store:
                 similarities = []
-                for item in self.vector_store[-20:]:  # Compare to recent 20
+                for item in self.vector_store[-20:]:
                     sim = cosine_sim(avg_news_emb, item["embedding"])
                     similarities.append(sim)
                 if similarities:
-                    novelty = float(1 - np.mean(similarities))  # Lower similarity = higher novelty
+                    novelty = float(1 - np.mean(similarities))
 
             return {
                 "news_sentiment": sentiment_score,
@@ -210,20 +169,6 @@ You have access to the following tools:
             return {"news_sentiment": 0.0, "news_magnitude": 0.0, "news_novelty": 0.5}
 
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
-        """
-        Run feature engineering pipeline.
-
-        Args:
-            input_data: {
-                "price_data": Dict[str, pd.DataFrame],  # ticker -> price DataFrame
-                "fundamentals": Dict[str, Dict],         # ticker -> fundamentals dict
-                "news": Dict[str, List[Dict]],           # ticker -> list of news articles
-                "data_dictionary": Dict                  # from Data Agent
-            }
-
-        Returns:
-            AgentOutput with feature_matrix, retrieved_news, feature_dictionary
-        """
         price_data = input_data.get("price_data", {})
         fundamentals = input_data.get("fundamentals", {})
         news = input_data.get("news", {})
@@ -232,29 +177,21 @@ You have access to the following tools:
         features = {}
         retrieved_news = {}
 
-        # Process each ticker
         for ticker, prices in price_data.items():
             logs.append(f"Processing features for {ticker}...")
 
             ticker_features = {}
-
-            # Compute technical indicators
             if not prices.empty:
                 tech_indicators = self.compute_technical_indicators(prices)
-                # Get latest values as features
                 if not tech_indicators.empty:
                     latest = tech_indicators.iloc[-1]
                     for col in tech_indicators.columns:
                         if col not in ['Open', 'High', 'Low', 'Close', 'Volume']:
                             ticker_features[col] = latest[col] if pd.notna(latest[col]) else None
 
-
-            # Compute factors
             ticker_fundamentals = fundamentals.get(ticker, {})
             factors = self.compute_factors(prices, ticker_fundamentals)
             ticker_features.update(factors)
-
-            # Compute embedding factors from news  <-- ADD THESE 4 LINES
             ticker_news = news.get(ticker, [])
             ticker_news_texts = [f"{n.get('headline', '')} {n.get('summary', '')}"
                                  for n in ticker_news if n.get('headline')]
@@ -262,8 +199,6 @@ You have access to the following tools:
             ticker_features.update(embedding_factors)
 
             features[ticker] = ticker_features
-
-            # Process news: embed and store
             for article in ticker_news:
                 text = f"{article.get('headline', '')} {article.get('summary', '')}"
                 if text.strip():
@@ -280,7 +215,6 @@ You have access to the following tools:
                             }
                         )
 
-            # Retrieve similar historical news for this ticker
             if ticker_news:
                 latest_news = ticker_news[0] if ticker_news else {}
                 query = f"{latest_news.get('headline', '')} {latest_news.get('summary', '')}"
@@ -289,7 +223,6 @@ You have access to the following tools:
 
             logs.append(f"Computed {len(ticker_features)} features for {ticker}")
 
-        # Generate feature dictionary
         feature_dictionary = self.generate_feature_dictionary(features)
 
         return AgentOutput(
@@ -303,23 +236,7 @@ You have access to the following tools:
             logs=logs
         )
 
-    # ==================== Tool Implementations ====================
-    def compute_technical_indicators(
-            self,
-            prices: pd.DataFrame,
-            indicators: Optional[List[str]] = None
-    ) -> pd.DataFrame:
-        """
-        Compute technical indicators from price data.
-
-        Args:
-            prices: DataFrame with OHLCV columns
-            indicators: List of indicators to compute
-                       Default: ['RSI', 'MACD', 'BB', 'SMA_20', 'SMA_50']
-
-        Returns:
-            DataFrame with indicator columns added
-        """
+    def compute_technical_indicators(self, prices: pd.DataFrame, indicators: Optional[List[str]] = None) -> pd.DataFrame:
         if prices.empty:
             return prices
 
@@ -330,7 +247,6 @@ You have access to the following tools:
         close = df['Close']
 
         try:
-            # RSI (14-day)
             if 'RSI' in indicators:
                 delta = close.diff()
                 gain = delta.where(delta > 0, 0).rolling(window=14).mean()
@@ -338,7 +254,6 @@ You have access to the following tools:
                 rs = gain / loss
                 df['RSI_14'] = 100 - (100 / (1 + rs))
 
-            # MACD
             if 'MACD' in indicators:
                 ema_12 = close.ewm(span=12, adjust=False).mean()
                 ema_26 = close.ewm(span=26, adjust=False).mean()
@@ -346,7 +261,6 @@ You have access to the following tools:
                 df['MACD_signal'] = df['MACD'].ewm(span=9, adjust=False).mean()
                 df['MACD_hist'] = df['MACD'] - df['MACD_signal']
 
-            # Bollinger Bands
             if 'BB' in indicators:
                 sma_20 = close.rolling(window=20).mean()
                 std_20 = close.rolling(window=20).std()
@@ -355,15 +269,15 @@ You have access to the following tools:
                 df['BB_lower'] = sma_20 - (std_20 * 2)
                 df['BB_width'] = (df['BB_upper'] - df['BB_lower']) / df['BB_middle']
 
-            # Simple Moving Averages
             if 'SMA_20' in indicators:
                 df['SMA_20'] = close.rolling(window=20).mean()
+
             if 'SMA_50' in indicators:
                 df['SMA_50'] = close.rolling(window=50).mean()
 
-            # Exponential Moving Averages
             if 'EMA_12' in indicators:
                 df['EMA_12'] = close.ewm(span=12, adjust=False).mean()
+
             if 'EMA_26' in indicators:
                 df['EMA_26'] = close.ewm(span=26, adjust=False).mean()
 
@@ -374,21 +288,7 @@ You have access to the following tools:
             logger.error(f"Error computing technical indicators: {e}")
             return prices
 
-    def compute_factors(
-            self,
-            prices: pd.DataFrame,
-            fundamentals: Optional[Dict] = None
-    ) -> Dict[str, float]:
-        """
-        Compute quantitative factors.
-
-        Args:
-            prices: Historical price data
-            fundamentals: Company fundamental data
-
-        Returns:
-            Dict with factor values
-        """
+    def compute_factors(self, prices: pd.DataFrame, fundamentals: Optional[Dict] = None) -> Dict[str, float]:
         factors = {}
 
         if prices.empty:
@@ -397,7 +297,6 @@ You have access to the following tools:
         try:
             close = prices['Close']
 
-            # Momentum factors (returns over periods)
             if len(close) >= 5:
                 factors['return_5d'] = (close.iloc[-1] / close.iloc[-5] - 1) if close.iloc[-5] != 0 else 0
             if len(close) >= 21:
@@ -406,27 +305,20 @@ You have access to the following tools:
                 factors['momentum_3m'] = (close.iloc[-1] / close.iloc[-63] - 1) if close.iloc[-63] != 0 else 0
             if len(close) >= 252:
                 factors['momentum_12m'] = (close.iloc[-1] / close.iloc[-252] - 1) if close.iloc[-252] != 0 else 0
-
-            # Volatility (30-day rolling std of returns)
             returns = close.pct_change().dropna()
             if len(returns) >= 30:
-                factors['volatility_30d'] = returns.tail(30).std() * np.sqrt(252)  # Annualized
-
-            # Volume factors
+                factors['volatility_30d'] = returns.tail(30).std() * np.sqrt(252)
             if 'Volume' in prices.columns:
                 volume = prices['Volume']
                 if len(volume) >= 20:
                     factors['volume_ratio'] = volume.iloc[-1] / volume.tail(20).mean() if volume.tail(
                         20).mean() != 0 else 1
-
-            # Price position
             if len(close) >= 52:
                 high_52w = close.tail(252).max() if len(close) >= 252 else close.max()
                 low_52w = close.tail(252).min() if len(close) >= 252 else close.min()
                 if high_52w != low_52w:
                     factors['price_position_52w'] = (close.iloc[-1] - low_52w) / (high_52w - low_52w)
 
-            # Value factors from fundamentals
             if fundamentals:
                 if fundamentals.get('pe_ratio'):
                     factors['pe_ratio'] = fundamentals['pe_ratio']
@@ -445,23 +337,12 @@ You have access to the following tools:
             return factors
 
     def embed_text(self, text: str) -> List[float]:
-        """
-        Convert text to embedding vector using sentence-transformers.
 
-        Args:
-            text: Text to embed
-
-        Returns:
-            Embedding vector as list of floats
-        """
         try:
-            # Lazy load the embedding model
             if not hasattr(self, '_embedding_model'):
-                from sentence_transformers import SentenceTransformer
                 self._embedding_model = SentenceTransformer('all-MiniLM-L6-v2')
                 logger.info("Loaded embedding model: all-MiniLM-L6-v2")
 
-            # Truncate long text if needed
             max_length = 512
             if len(text) > max_length:
                 text = text[:max_length]
@@ -476,29 +357,11 @@ You have access to the following tools:
             logger.error(f"Error embedding text: {e}")
             return []
 
-    def store_embedding(
-            self,
-            embedding: List[float],
-            text: str,
-            metadata: Dict[str, Any]
-    ) -> bool:
-        """
-        Store embedding in vector database (in-memory).
-
-        Args:
-            embedding: Embedding vector
-            text: Original text
-            metadata: {date, ticker, source, headline}
-
-        Returns:
-            Success boolean
-        """
+    def store_embedding(self, embedding: List[float], text: str, metadata: Dict[str, Any]) -> bool:
         try:
-            # Initialize vector store if not exists
             if self.vector_store is None:
                 self.vector_store = []
 
-            # Store embedding with text and metadata
             self.vector_store.append({
                 "embedding": np.array(embedding),
                 "text": text,
@@ -512,37 +375,19 @@ You have access to the following tools:
             logger.error(f"Error storing embedding: {e}")
             return False
 
-    def retrieve_similar_news(
-            self,
-            query: str,
-            top_k: int = 5
-    ) -> List[Dict[str, Any]]:
-        """
-        Retrieve similar historical news.
+    def retrieve_similar_news(self, query: str, top_k: int = 5) -> List[Dict[str, Any]]:
 
-        Args:
-            query: Query text (current news or market situation)
-            top_k: Number of results to return
-
-        Returns:
-            List of similar news with text, date, ticker, similarity
-        """
         if not self.vector_store:
             logger.warning("Vector store is empty, no news to retrieve")
             return []
 
         try:
-            # Embed the query
             query_embedding = np.array(self.embed_text(query))
-
             if len(query_embedding) == 0:
                 return []
-
-            # Calculate cosine similarity with all stored embeddings
             similarities = []
             for item in self.vector_store:
                 stored_embedding = item["embedding"]
-                # Cosine similarity
                 similarity = np.dot(query_embedding, stored_embedding) / (
                         np.linalg.norm(query_embedding) * np.linalg.norm(stored_embedding)
                 )
@@ -552,11 +397,8 @@ You have access to the following tools:
                     "similarity": float(similarity)
                 })
 
-            # Sort by similarity and return top_k
             similarities.sort(key=lambda x: x["similarity"], reverse=True)
             top_results = similarities[:top_k]
-
-            # Format output (return TEXT, not embeddings)
             results = []
             for item in top_results:
                 results.append({
@@ -576,28 +418,15 @@ You have access to the following tools:
             return []
 
     def generate_feature_dictionary(self, features: Dict[str, Dict]) -> Dict[str, Any]:
-        """
-        Generate a feature dictionary describing all computed features.
 
-        Args:
-            features: Dict of ticker -> feature dict
-
-        Returns:
-            Feature dictionary for Quant Model Agent
-        """
         dictionary = {
             "generated_at": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "features": []
         }
-
-        # Collect all unique feature names
         all_features = set()
         for ticker_features in features.values():
             all_features.update(ticker_features.keys())
-
-        # Define feature metadata
         feature_definitions = {
-            # Technical indicators
             "RSI_14": {"category": "technical", "description": "14-day Relative Strength Index",
                        "interpretation": ">70 overbought, <30 oversold"},
             "MACD": {"category": "technical", "description": "MACD line (12-day EMA - 26-day EMA)",
@@ -622,8 +451,6 @@ You have access to the following tools:
                        "interpretation": "Short-term trend"},
             "EMA_26": {"category": "technical", "description": "26-day Exponential Moving Average",
                        "interpretation": "Medium-term trend"},
-
-            # Momentum factors
             "return_5d": {"category": "momentum", "description": "5-day return",
                           "interpretation": "Short-term momentum"},
             "momentum_1m": {"category": "momentum", "description": "1-month return",
@@ -632,20 +459,12 @@ You have access to the following tools:
                             "interpretation": "Medium-term momentum"},
             "momentum_12m": {"category": "momentum", "description": "12-month return",
                              "interpretation": "Long-term momentum"},
-
-            # Volatility factors
             "volatility_30d": {"category": "volatility", "description": "30-day annualized volatility",
                                "interpretation": "Higher = more risk"},
-
-            # Volume factors
             "volume_ratio": {"category": "volume", "description": "Current volume / 20-day avg volume",
                              "interpretation": ">1 = above average activity"},
-
-            # Price factors
             "price_position_52w": {"category": "price", "description": "Position in 52-week range (0-1)",
                                    "interpretation": "1 = at 52-week high"},
-
-            # Value factors
             "pe_ratio": {"category": "value", "description": "Price-to-Earnings ratio",
                          "interpretation": "Lower = cheaper"},
             "pb_ratio": {"category": "value", "description": "Price-to-Book ratio",
@@ -656,7 +475,6 @@ You have access to the following tools:
                      "interpretation": ">1 = more volatile than market"},
         }
 
-        # Build feature list
         for feature_name in sorted(all_features):
             feature_info = feature_definitions.get(feature_name, {
                 "category": "other",

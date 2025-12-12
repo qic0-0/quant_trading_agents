@@ -1,19 +1,3 @@
-"""
-Coordinator/Portfolio Agent - Agent 5 in the Quant Trading System.
-
-Responsibilities:
-- Aggregate signals from Quant Model and Market-Sense agents
-- Manage portfolio state (positions, cash)
-- Validate trades (can only sell what we own)
-- Execute trades within constraints
-- Risk management (position limits, cash reserves)
-
-Key Design:
-- Combines signal aggregation + portfolio management
-- Long-only (no shorting)
-- Enforces position limits and cash reserves
-"""
-
 from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 from datetime import datetime
@@ -24,13 +8,11 @@ logger = logging.getLogger(__name__)
 from .base_agent import BaseAgent, AgentOutput
 from llm.llm_client import Message
 
-
 @dataclass
 class Position:
-    """Represents a position in a single ticker."""
     ticker: str
     shares: int
-    cost_basis: float  # Average cost per share
+    cost_basis: float
     current_price: float = 0.0
     
     @property
@@ -44,7 +26,6 @@ class Position:
 
 @dataclass
 class PortfolioState:
-    """Current state of the portfolio."""
     cash: float
     positions: Dict[str, Position] = field(default_factory=dict)
     
@@ -71,9 +52,8 @@ class PortfolioState:
 
 @dataclass
 class TradeOrder:
-    """A validated trade order."""
     ticker: str
-    action: str  # "BUY" or "SELL"
+    action: str
     shares: int
     price: float
     reasoning: str
@@ -82,10 +62,8 @@ class TradeOrder:
     def __post_init__(self):
         self.timestamp = self.timestamp or datetime.now()
 
-
 @dataclass
 class TradeResult:
-    """Result of a trade execution."""
     success: bool
     order: Optional[TradeOrder]
     message: str
@@ -93,26 +71,7 @@ class TradeResult:
 
 
 class CoordinatorAgent(BaseAgent):
-    """
-    Agent responsible for signal aggregation and portfolio management.
-    
-    Signal Aggregation:
-    - Combines quant model signal with market-sense insight
-    - Resolves conflicts between signals
-    - Determines trade direction and size
-    
-    Portfolio Management:
-    - Tracks current positions and cash
-    - Validates trades (can only sell what we own)
-    - Enforces position limits
-    - Maintains minimum cash reserve
-    
-    Constraints:
-    - Long-only (no shorting)
-    - Max position size: 30% of portfolio
-    - Min cash reserve: 10% of portfolio
-    """
-    
+
     def __init__(self, llm_client, config):
         super().__init__("CoordinatorAgent", llm_client, config)
         self.portfolio = PortfolioState(cash=config.portfolio.initial_cash)
@@ -152,7 +111,6 @@ When aggregating signals:
 Always explain your reasoning for the final decision."""
 
     def _register_tools(self):
-        """Register portfolio management tools."""
         
         self.register_tool(
             name="get_portfolio_state",
@@ -214,20 +172,7 @@ Always explain your reasoning for the final decision."""
         )
 
     def run(self, input_data: Dict[str, Any]) -> AgentOutput:
-        """
-        Aggregate signals and manage portfolio.
 
-        Args:
-            input_data: {
-                "ticker": str,
-                "current_price": float,
-                "quant_signal": Dict,
-                "market_insight": Dict
-            }
-
-        Returns:
-            AgentOutput with trade decision and portfolio state
-        """
         ticker = input_data.get("ticker", "")
         current_price = input_data.get("current_price", 0)
         quant_signal = input_data.get("quant_signal", {})
@@ -236,14 +181,12 @@ Always explain your reasoning for the final decision."""
         logs = []
 
         try:
-            # Update current prices in portfolio
             if ticker in self.portfolio.positions:
                 self.portfolio.positions[ticker].current_price = current_price
 
             logs.append(f"Processing decision for {ticker} @ ${current_price:.2f}")
             logs.append(f"Portfolio value: ${self.portfolio.total_value:.2f}")
 
-            # Aggregate signals
             aggregated = self.aggregate_signals(quant_signal, market_insight)
             logs.append(f"Aggregated signal: {aggregated['direction']} (confidence: {aggregated['confidence']:.2f})")
             logs.append(f"Reasoning: {aggregated['reasoning']}")
@@ -252,7 +195,6 @@ Always explain your reasoning for the final decision."""
             signal_strength = aggregated["strength"]
             confidence = aggregated["confidence"]
 
-            # Determine action based on direction and current position
             trade_result = None
 
             if direction == "HOLD":
@@ -265,7 +207,6 @@ Always explain your reasoning for the final decision."""
                 )
 
             elif direction == "BUY":
-                # Calculate position size
                 shares = self.calculate_position_size(ticker, signal_strength, current_price)
 
                 if shares > 0:
@@ -288,13 +229,11 @@ Always explain your reasoning for the final decision."""
                     )
 
             elif direction == "SELL":
-                # Check if we have a position to sell
                 if ticker in self.portfolio.positions:
                     position = self.portfolio.positions[ticker]
-                    # Sell proportional to signal strength
                     shares_to_sell = int(position.shares * signal_strength)
-                    shares_to_sell = max(1, shares_to_sell)  # Sell at least 1 share
-                    shares_to_sell = min(shares_to_sell, position.shares)  # Can't sell more than we own
+                    shares_to_sell = max(1, shares_to_sell)
+                    shares_to_sell = min(shares_to_sell, position.shares)
 
                     logs.append(f"Decision: SELL {shares_to_sell} shares of {ticker}")
                     trade_result = self.execute_trade(
@@ -345,40 +284,15 @@ Always explain your reasoning for the final decision."""
                 logs=logs
             )
     
-    # ==================== Tool Implementations ====================
-    
     def get_portfolio_state(self) -> Dict[str, Any]:
-        """
-        Get current portfolio state.
-        
-        Returns:
-            Portfolio state as dict with cash, positions, total_value
-        """
+
         return self.portfolio.to_dict()
 
-    def validate_trade(
-            self,
-            action: str,
-            ticker: str,
-            shares: int,
-            price: float
-    ) -> Dict[str, Any]:
-        """
-        Validate if a trade can be executed.
+    def validate_trade(self, action: str, ticker: str, shares: int, price: float) -> Dict[str, Any]:
 
-        Args:
-            action: "BUY" or "SELL"
-            ticker: Stock ticker
-            shares: Number of shares
-            price: Price per share
-
-        Returns:
-            Dict with valid (bool) and reason (str)
-        """
         trade_value = shares * price
 
         if action == "SELL":
-            # Check if we own enough shares
             if ticker not in self.portfolio.positions:
                 return {"valid": False, "reason": f"Cannot SELL {ticker}: no position held"}
 
@@ -390,7 +304,6 @@ Always explain your reasoning for the final decision."""
             return {"valid": True, "reason": "Trade validated"}
 
         elif action == "BUY":
-            # Check cash reserve requirement
             min_reserve = self.portfolio.total_value * self.min_cash_reserve_pct
             available_cash = self.portfolio.cash - min_reserve
 
@@ -398,7 +311,6 @@ Always explain your reasoning for the final decision."""
                 return {"valid": False,
                         "reason": f"Insufficient cash: need ${trade_value:.2f}, available ${available_cash:.2f} (after {self.min_cash_reserve_pct * 100:.0f}% reserve)"}
 
-            # Check position limit
             current_position_value = 0
             if ticker in self.portfolio.positions:
                 current_position_value = self.portfolio.positions[ticker].market_value
@@ -415,28 +327,8 @@ Always explain your reasoning for the final decision."""
         else:
             return {"valid": False, "reason": f"Invalid action: {action}. Must be BUY or SELL"}
 
-    def execute_trade(
-            self,
-            action: str,
-            ticker: str,
-            shares: int,
-            price: float,
-            reasoning: str
-    ) -> TradeResult:
-        """
-        Execute a validated trade.
+    def execute_trade(self, action: str, ticker: str, shares: int, price: float, reasoning: str) -> TradeResult:
 
-        Args:
-            action: "BUY" or "SELL"
-            ticker: Stock ticker
-            shares: Number of shares
-            price: Price per share
-            reasoning: Why this trade was made
-
-        Returns:
-            TradeResult with success status and updated portfolio
-        """
-        # Validate first
         validation = self.validate_trade(action, ticker, shares, price)
         if not validation["valid"]:
             return TradeResult(
@@ -448,7 +340,6 @@ Always explain your reasoning for the final decision."""
 
         trade_value = shares * price
 
-        # Create order
         order = TradeOrder(
             ticker=ticker,
             action=action,
@@ -458,13 +349,10 @@ Always explain your reasoning for the final decision."""
         )
 
         if action == "BUY":
-            # Decrease cash
             self.portfolio.cash -= trade_value
 
-            # Update or create position
             if ticker in self.portfolio.positions:
                 pos = self.portfolio.positions[ticker]
-                # Calculate new average cost basis
                 total_cost = (pos.shares * pos.cost_basis) + trade_value
                 total_shares = pos.shares + shares
                 pos.cost_basis = total_cost / total_shares
@@ -481,21 +369,15 @@ Always explain your reasoning for the final decision."""
             logger.info(f"BUY executed: {shares} shares of {ticker} @ ${price:.2f}")
 
         elif action == "SELL":
-            # Increase cash
             self.portfolio.cash += trade_value
-
-            # Update position
             pos = self.portfolio.positions[ticker]
             pos.shares -= shares
             pos.current_price = price
-
-            # Remove position if fully sold
             if pos.shares == 0:
                 del self.portfolio.positions[ticker]
 
             logger.info(f"SELL executed: {shares} shares of {ticker} @ ${price:.2f}")
 
-        # Record in history
         self.trade_history.append(order)
 
         return TradeResult(
@@ -505,49 +387,21 @@ Always explain your reasoning for the final decision."""
             new_portfolio_state=self.portfolio
         )
 
-    def calculate_position_size(
-            self,
-            ticker: str,
-            signal_strength: float,
-            current_price: float
-    ) -> int:
-        """
-        Calculate appropriate position size.
+    def calculate_position_size(self, ticker: str, signal_strength: float, current_price: float) -> int:
 
-        Args:
-            ticker: Stock ticker
-            signal_strength: Signal confidence (0.0 to 1.0)
-            current_price: Current stock price
-
-        Returns:
-            Number of shares to trade
-        """
         if current_price <= 0:
             return 0
 
-        # Calculate maximum position value (respecting position limit)
         max_position_value = self.portfolio.total_value * self.max_position_pct
-
-        # Account for existing position
         current_position_value = 0
         if ticker in self.portfolio.positions:
             current_position_value = self.portfolio.positions[ticker].shares * current_price
 
-        # Available room for this position
         available_position_value = max_position_value - current_position_value
-
-        # Calculate available cash (respecting cash reserve)
         min_reserve = self.portfolio.total_value * self.min_cash_reserve_pct
         available_cash = max(0, self.portfolio.cash - min_reserve)
-
-        # Take minimum of position limit and available cash
         max_trade_value = min(available_position_value, available_cash)
-
-        # Scale by signal strength (stronger signal = larger position)
-        # Use signal_strength squared to be more conservative
         scaled_value = max_trade_value * signal_strength
-
-        # Convert to shares (round down)
         shares = int(scaled_value / current_price)
 
         logger.debug(
@@ -555,39 +409,16 @@ Always explain your reasoning for the final decision."""
 
         return shares
 
-    def aggregate_signals(
-            self,
-            quant_signal: Dict,
-            market_insight: Dict
-    ) -> Dict[str, Any]:
-        """
-        Aggregate signals from Quant Model and Market-Sense agents.
+    def aggregate_signals(self, quant_signal: Dict, market_insight: Dict) -> Dict[str, Any]:
 
-        Handles three modes:
-        - full: Both signals present, aggregate them
-        - quant_only: Only quant signal, market_insight is neutral
-        - llm_only: Only market_insight, quant_signal is neutral
-
-        Args:
-            quant_signal: For HMM: {expected_return, confidence, regime, model_type}
-                          For XGBoost: {direction_probability, confidence, predicted_direction, model_type}
-            market_insight: {outlook, confidence, reasoning, risk_flags}
-
-        Returns:
-            Aggregated signal with direction, strength, confidence, reasoning
-        """
         model_type = quant_signal.get("model_type", "hmm")
-
-        # Check if agents are disabled
         quant_disabled = (model_type == "none" or quant_signal.get("confidence", 0) == 0
                           and quant_signal.get("regime") == "DISABLED")
         market_disabled = (market_insight.get("outlook") == "NEUTRAL"
                            and market_insight.get("confidence", 0) == 0
                            and "disabled" in market_insight.get("reasoning", "").lower())
 
-        # ========== QUANT-ONLY MODE ==========
         if market_disabled and not quant_disabled:
-            # Use only quant signal
             if model_type == "hmm":
                 expected_return = quant_signal.get("expected_return", 0)
                 quant_confidence = quant_signal.get("confidence", 0.5)
@@ -632,9 +463,7 @@ Always explain your reasoning for the final decision."""
                 "model_type": model_type
             }
 
-        # ========== LLM-ONLY MODE ==========
         if quant_disabled and not market_disabled:
-            # Use only market insight
             market_outlook = market_insight.get("outlook", "NEUTRAL")
             market_confidence = market_insight.get("confidence", 0.5)
             market_reasoning = market_insight.get("reasoning", "")
@@ -642,7 +471,7 @@ Always explain your reasoning for the final decision."""
 
             if market_outlook == "BULLISH":
                 final_direction = "BUY"
-                expected_return = 0.02 * market_confidence  # Estimate
+                expected_return = 0.02 * market_confidence
             elif market_outlook == "BEARISH":
                 final_direction = "SELL"
                 expected_return = -0.02 * market_confidence
@@ -650,7 +479,6 @@ Always explain your reasoning for the final decision."""
                 final_direction = "HOLD"
                 expected_return = 0
 
-            # Reduce confidence if risk flags present
             if risk_flags:
                 market_confidence *= 0.8
 
@@ -668,8 +496,6 @@ Always explain your reasoning for the final decision."""
                 "model_type": "none"
             }
 
-        # ========== FULL MODE (original logic) ==========
-        # Extract quant signal based on model type
         if model_type == "hmm":
             expected_return = quant_signal.get("expected_return", 0)
             quant_confidence = quant_signal.get("confidence", 0.5)
@@ -703,7 +529,6 @@ Always explain your reasoning for the final decision."""
             regime = quant_signal.get("regime", "Unknown")
             quant_direction = "HOLD"
 
-        # Extract market insight info
         market_outlook = market_insight.get("outlook", "NEUTRAL")
         market_confidence = market_insight.get("confidence", 0.5)
         risk_flags = market_insight.get("risk_flags", [])
@@ -715,7 +540,6 @@ Always explain your reasoning for the final decision."""
         else:
             market_direction = "HOLD"
 
-        # Aggregate based on agreement
         if quant_direction == market_direction:
             final_direction = quant_direction
             final_confidence = (quant_confidence + market_confidence) / 2
